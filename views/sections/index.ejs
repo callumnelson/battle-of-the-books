@@ -1,0 +1,23 @@
+<%- include('../partials/html-head') %>
+<link rel="stylesheet" href="/stylesheets/sections/index.css">
+<%- include('../partials/nav') %>
+
+<main>
+  <div class="page-header-container">
+    <div>
+      <h1 class="page-header">Your Sections</h1>
+    </div>
+    <div class="page-nav-container">
+      <a class="btn btn-outline-info" href="/sections/new" role="button">Add Section</a>
+    </div>
+  </div>
+  <div class="sections-container">
+    <% teacher.sections.forEach( section => { %>
+     <div class="section-card">
+      <h1> <%= section.name %> </h1>
+     </div>
+    <% }) %>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

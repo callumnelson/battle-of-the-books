@@ -7,7 +7,8 @@ const profileSchema = new Schema({
   avatar: String,
   sections: [{
     type: Schema.Types.ObjectId, 
-    ref: 'Section'
+    ref: 'Section',
+    default: []
   }]
 }, {
   timestamps: true

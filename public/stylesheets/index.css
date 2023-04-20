@@ -1,0 +1,29 @@
+main {
+  justify-content: center;
+  align-items: center;
+}
+
+#signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#signup-container > h4, 
+#signup-container > p,
+#signup-container > i {
+  margin: 10px 0;
+}
+
+#signup-container > i {
+  padding: 14px;
+}
+
+.g_id_signin {
+  margin: 30px 0 10px 0;
+}
