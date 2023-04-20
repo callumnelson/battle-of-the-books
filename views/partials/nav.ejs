@@ -3,7 +3,7 @@
   <% } %>
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-primary" style="background-color: #a5d2f3;">
+  <nav class="navbar sticky-top navbar-expand-sm navbar-light bg-light">
     <% if (user) { %>
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
@@ -35,25 +35,24 @@
                 Logout
               </a>
             </li>
+            <li>
+              <a href="/profile">
+                <img
+                  id="avatar"
+                  src="<%= user.profile.avatar %>"
+                  alt="<%= user.profile.name %> avatar"
+                />
+              </a>
+            </li>
           </ul>
         </div>
       </div>
     <% } else { %>
-      <div 
-        id="g_id_onload"
-        data-client_id="<%= googleClientID %>"
-        data-login_uri="/auth/google"
-        data-auto_prompt="false"
-        data-prompt_parent_id="g_id_onload"
-      ></div>
-      <div 
-        class="g_id_signin right"
-        data-type="standard"
-        data-size="large"
-        data-theme="outline"
-        data-text="sign_in_with"
-        data-shape="rectangular"
-        data-logo_alignment="left"
-      ></div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <i id="logo" class="fa-solid fa-book fa-2xl"></i>
+          Battle of the Books
+        </a>
+      </div>
     <% } %>
   </nav>

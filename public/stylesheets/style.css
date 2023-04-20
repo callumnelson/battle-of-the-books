@@ -12,16 +12,27 @@ html {
 }
 
 body {
-  background-color: #656565;
+  background-color: rgb(124, 124, 124);
   color: #f6f6f6;
   /* Use a system font, if none are available use any found sans-sarif font */
   font-family: system-ui, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 
     'Helvetica Neue', sans-serif;
   margin: 0;
+  height: 100vh;
 }
 
 #navbarNav {
   justify-content: end;
+}
+
+.navbar-nav {
+  align-items: center;
+}
+
+#avatar {
+  border-radius: 50%;
+  max-height: 50px;
+  margin-left: 10px;
 }
 
 main {
@@ -29,8 +40,31 @@ main {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  min-height: 80%;
+  margin: 0;
 }
 
-.right {
-  margin-left: auto;
+#signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#signup-container > h4, 
+#signup-container > p,
+#signup-container > i {
+  margin: 10px 0;
+}
+
+#signup-container > i {
+  padding: 14px;
+}
+
+.g_id_signin {
+  margin: 30px 0 10px 0;
 }
