@@ -16,6 +16,9 @@ router.get('/:sectionId', isLoggedIn, sectionsCtrl.show)
 // POST localhost:3000/sections
 router.post('/', isLoggedIn, sectionsCtrl.create)
 
+// DELETE localhost:3000/sections/:sectionId
+router.delete('/:sectionId', isLoggedIn, sectionsCtrl.delete)
+
 export {
   router
 }

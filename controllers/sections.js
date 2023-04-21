@@ -57,8 +57,19 @@ const show = async (req, res) => {
   }
 }
 
+const deleteSection = async (req, res) => {
+  try {
+    const deleted = await Section.findByIdAndDelete(req.params.sectionId)
+    res.redirect('/sections')
+  } catch (err) {
+    console.log(err)
+    res.redirect('/sections')
+  }
+}
+
 export {
   index,
   create,
-  show
+  show,
+  deleteSection as delete
 }
