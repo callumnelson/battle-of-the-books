@@ -42,6 +42,10 @@ const profileSchema = new Schema({
   isSignedUp: {
     type: Boolean,
     default: false
+  },
+  district: {
+    type: Schema.Types.ObjectId,
+    ref: 'District'
   }
 }, {
   timestamps: true

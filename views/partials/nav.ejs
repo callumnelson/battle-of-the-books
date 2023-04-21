@@ -20,6 +20,8 @@
                 Sections
               </a>
             </li>
+            <!-- Only show additional paths once a user is signed up -->
+            <% if (user.profile.isSignedUp) { %>
             <li class="nav-item">
               <a class="nav-link" href="/students" class="<%= title === 'Students' ? 'active' : '' %>">
                 Students
@@ -30,6 +32,7 @@
                 Library
               </a>
             </li>
+            <% } %>
             <li class="nav-item" id="logout">
               <a href="/auth/logout" class="right nav-link">
                 Logout

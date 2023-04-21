@@ -1,5 +1,6 @@
 <%- include('./partials/html-head') %>
 <link rel="stylesheet" href="/stylesheets/index.css">
+<script defer src="/js/index.js"></script>
 <%- include('./partials/nav') %>
 
 <main>
@@ -31,11 +32,56 @@
     <!-- IF THERE ARE SECTIONS, SHOW THE SCOREBOARD -->
     <% if (!user.profile.isSignedUp) { %>
       <h1>Let's get started</h1>
-      <h2>Visit your profile page to fill in your information</h2>
-      <a class="btn btn-outline-info" role="button" href="/profile">Update Profile</a>
+      <form action="/<%= user.profile._id %>/?_method=PATCH" method="POST">
+        <div class="form-group">
+          <label for="district-input">Select Your District</label>
+          <select name="districtName" id="district-input" class="form-control" required>
+            <% districts.forEach( district => { %>
+              <option 
+                value="<%= district.name %>"
+                class="<%= district.name.toLowerCase().replaceAll(' ', '-') %> district"
+              ><%= district.name %></option>
+            <% }) %>
+            <option value="Add New District">
+              Add New District
+            </option>
+          </select>
+        </div>
+        <div class="form-group" id="new-district-container">
+          <label for="new-district-input">District Name:</label>
+          <input name="newDistrictName" id="new-district-input" class="form-control" placeholder="District name">
+          </input>
+        </div>
+        <div class="form-group">
+          <label for="school-input">Select Your School</label>
+          <select name="schoolName" id="school-input" class="form-control" required>
+            <% districts.forEach( district => { %>
+              <% district.schools.forEach( school => { %>
+                <option 
+                  class="<%= school.toLowerCase().replace(' ', '-') %> school" 
+                  value="<%= school %>"
+                >
+                  <%= school %>
+                </option>
+              <% }) %>
+            <% }) %>
+            <option>
+              Add New School
+            </option>
+          </select>
+        </div>
+        <div class="form-group" id="new-school-container">
+          <label for="new-district-input">School Name:</label>
+          <input name="newSchoolName" id="new-district-input" class="form-control" placeholder="School name">
+          </input>
+        </div>
+        <button type="submit" class="btn btn-success">
+          Submit
+        </button>
+      </form>
     <!-- IF THERE ARE NO SECTIONS, PROMPT TO CREATE SOME -->
     <% } else if (!user.profile.sections.length) { %>
-      <h1>Let's create some sections</h1>
+      <h1>You're ready create some sections</h1>
       <a class="btn btn-outline-info" role="button" href="/sections">Sections</a>
     <!-- We're signed up and have sections -->
     <% } else { %>
@@ -44,13 +90,16 @@
   
   <!-- STUDENT -->
   <% } else { %>
+    <!-- If not signed up, sign up for a district and a school -->
     <% if (!user.profile.isSignedUp) { %>
       <h1>You aren't in any classes yet!</h1>
       <h2>Click the button to join a class and get started</h2>
       <a class="btn btn-outline-info" role="button" href="/sections">Join Section</a>
-    <% } else { %> 
+    <% } else if (!user.profile.isEnrolled) { %> 
       <h1> Welcome back, <%= user.profile.name %>!</h1>
       <h2> Let's read! </h2>
+    <% } else { %>
+
     <% } %>
   <% } %>
 </main>

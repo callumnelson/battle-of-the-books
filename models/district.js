@@ -5,12 +5,13 @@ const Schema = mongoose.Schema
 const districtSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
-  school: {
+  schools: [{
     type: String,
-    required: true
-  }
+    default: []
+  }]
 }, {
   timestamps: true
 })
