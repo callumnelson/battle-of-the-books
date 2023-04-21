@@ -4,7 +4,7 @@
 <%- include('../partials/nav') %>
 
 <main>
-  <div class="page-header-container">
+  <section class="page-header-container">
     <div>
       <h1 class="page-header">Your Sections</h1>
     </div>
@@ -13,16 +13,51 @@
         Add Section
       </a>
     </div>
-  </div>
-  <div class="sections-container">
-    <% teacher.sections.forEach( section => { %>
-     <div class="section-card">
-      <h1> <%= section.name %> </h1>
-     </div>
-    <% }) %>
-  </div>
+  </section>
+  <section class="sections-container">
+    <table id="sections-list" class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Section</th>
+          <th scope="col">Year</th>
+          <th scope="col">Grade Level</th>
+          <th scope="col">Number of Students</th>
+          <th scope="col">Number of ELLs</th>
+          <th scope="col">Number of SWDs</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% teacher.sections.forEach( (section, i) => { %>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td> <%= section.name %> </td>
+            <td> <%= section.schoolYear %> </td>
+            <td> <%= section.gradeLevel %> </td>
+            <td> <%= section.students.length %> %></td>
+            <td> 0 </td>
+            <td> 0 </td>
+            <td>
+              <a href="/sections/<%= section._id %>" role="button" class="btn btn-outline-primary">
+                Edit
+              </a>
+            </td>
+            <td>
+              <form action="/sections/<%= section._id %>?_method=DELETE"" method="POST" class="delete-form">
+                <a role="button" type="submit" class="btn btn-outline-danger">
+                  Delete
+                </a>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
 
-  <div id="new-section-modal" class="modal-custom">
+  <section id="new-section-modal" class="modal-custom">
     <div class="modal-wrapper">
       <div class="modal-header">
         <h3>Add New Section</h3>
@@ -65,7 +100,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </section>
 </main>
 
 <%- include('../partials/footer') %>

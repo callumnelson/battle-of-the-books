@@ -22,7 +22,15 @@ const studentSchema = new Schema({
   finishedBooks: [{
     type: Schema.Types.ObjectId,
     ref: 'Book'
-  }]
+  }],
+  ellStatus: {
+    type: Boolean,
+    default: false
+  },
+  swdStatus: {
+    type: Boolean,
+    default: false
+  }
 }, {
   timestamps: true
 })

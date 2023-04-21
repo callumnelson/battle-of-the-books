@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  background-color: rgb(174, 160, 173);
+  background-color: rgb(255, 255, 255);
   /* Use a system font, if none are available use any found sans-sarif font */
   font-family: system-ui, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 
     'Helvetica Neue', sans-serif;
@@ -25,7 +25,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p {
   margin: 0;
 }
 
