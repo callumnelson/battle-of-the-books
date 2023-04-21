@@ -31,6 +31,17 @@ const profileSchema = new Schema({
   swdStatus: {
     type: Boolean,
     default: false
+  },
+  role: {
+    type: Number,
+    required: true,
+    //100 > student
+    //200 > teacher
+    default: 100
+  },
+  isEnrolled: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true

@@ -26,16 +26,22 @@
           data-context="use"
         ></div>
       </div>
-  <% } else { %>
+  <% } else if (user.profile.role > 100) { %>
     <!-- IF THERE ARE SECTIONS, SHOW THE SCOREBOARD -->
-    <% if (1) { %>
+    <% if (user.profile.sections.length) { %>
       <h1>SCOREBOARD GOES HERE</h1>
       
 
     <!-- IF THERE ARE NO SECTIONS, PROMPT TO CREATE SOME -->
     <% } else { %>
-    
+      <h1>Let's get started</h1>
+      <h2>Visit your profile page to fill in your information</h2>
+      <a class="btn btn-outline-info" role="button" href="/profile">Update Profile</a>
     <% } %>
+  <% } else if (user.profile.isEnrolled) { %>
+    <h1>You're an unenrolled student!!</h1>
+    <h2>Click the button to join a class and get started</h2>
+    <a class="btn btn-outline-info" role="button" href="/sections">Join Section</a>
   <% } %>
 </main>
 
