@@ -39,7 +39,26 @@ const create = async (req, res) => {
   }
 }
 
+const show = async (req, res) => {
+  try {
+    const section = await Section.findById(req.params.sectionId)
+    //Make sure that this teacher is actually the owner of the section
+    if (section.teacher.equals(req.user.profile._id)){
+      res.render('sections/show', {
+        title: section.name,
+        section
+      })
+    }else {
+      throw new Error(`That's not your section!`)
+    }
+  } catch (err) {
+    console.log(err)
+    res.redirect('/sections')
+  }
+}
+
 export {
   index,
-  create
+  create,
+  show
 }

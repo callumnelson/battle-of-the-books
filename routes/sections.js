@@ -10,6 +10,9 @@ import { isLoggedIn } from '../middleware/middleware.js'
 // GET localhost:3000/sections
 router.get('/', isLoggedIn, sectionsCtrl.index)
 
+// GET localhost:3000/sections/:sectionId
+router.get('/:sectionId', isLoggedIn, sectionsCtrl.show)
+
 // POST localhost:3000/sections
 router.post('/', isLoggedIn, sectionsCtrl.create)
 

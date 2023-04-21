@@ -61,3 +61,36 @@ main {
   margin-left: 10px;
 }
 
+.page-header-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px; 
+  background-color: white;
+  border-radius: 2px;
+  align-items: center;
+  color: black;
+  padding: 10px 20px;
+  border: 1px solid lightgray;
+}
+
+.page-header {
+  margin: 0;
+}
+
+.sections-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 20px 20px 20px; 
+  background-color: white;
+  border-radius: 2px;
+  align-items: center;
+  color: black;
+  padding: 10px 20px;
+  border: 1px solid lightgray;
+}
+
+.page-nav-container {
+  display: flex;
+  gap: 10px;
+}
