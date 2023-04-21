@@ -26,22 +26,32 @@
           data-context="use"
         ></div>
       </div>
+  <!-- TEACHER -->
   <% } else if (user.profile.role > 100) { %>
     <!-- IF THERE ARE SECTIONS, SHOW THE SCOREBOARD -->
-    <% if (user.profile.sections.length) { %>
-      <h1>SCOREBOARD GOES HERE</h1>
-      
-
-    <!-- IF THERE ARE NO SECTIONS, PROMPT TO CREATE SOME -->
-    <% } else { %>
+    <% if (!user.profile.isSignedUp) { %>
       <h1>Let's get started</h1>
       <h2>Visit your profile page to fill in your information</h2>
       <a class="btn btn-outline-info" role="button" href="/profile">Update Profile</a>
+    <!-- IF THERE ARE NO SECTIONS, PROMPT TO CREATE SOME -->
+    <% } else if (!user.profile.sections.length) { %>
+      <h1>Let's create some sections</h1>
+      <a class="btn btn-outline-info" role="button" href="/sections">Sections</a>
+    <!-- We're signed up and have sections -->
+    <% } else { %>
+      <h1>SCOREBOARD GOES HERE</h1>
     <% } %>
-  <% } else if (user.profile.isEnrolled) { %>
-    <h1>You're an unenrolled student!!</h1>
-    <h2>Click the button to join a class and get started</h2>
-    <a class="btn btn-outline-info" role="button" href="/sections">Join Section</a>
+  
+  <!-- STUDENT -->
+  <% } else { %>
+    <% if (!user.profile.isSignedUp) { %>
+      <h1>You aren't in any classes yet!</h1>
+      <h2>Click the button to join a class and get started</h2>
+      <a class="btn btn-outline-info" role="button" href="/sections">Join Section</a>
+    <% } else { %> 
+      <h1> Welcome back, <%= user.profile.name %>!</h1>
+      <h2> Let's read! </h2>
+    <% } %>
   <% } %>
 </main>
 

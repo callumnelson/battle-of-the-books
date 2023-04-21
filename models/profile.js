@@ -39,7 +39,7 @@ const profileSchema = new Schema({
     //200 > teacher
     default: 100
   },
-  isEnrolled: {
+  isSignedUp: {
     type: Boolean,
     default: false
   }
