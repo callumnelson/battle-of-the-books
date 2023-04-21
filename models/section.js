@@ -32,7 +32,8 @@ const sectionSchema = new Schema({
   students: {
     type: [{
       type: Schema.Types.ObjectId, 
-      ref: 'Student'
+      ref: 'Student',
+      default: []
     }]
   }
 }, {
