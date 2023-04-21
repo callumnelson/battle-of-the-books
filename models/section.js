@@ -3,10 +3,14 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const sectionSchema = new Schema({
-  teacher: {
+  teachers: [{
     type: Schema.Types.ObjectId,
     ref: 'Profile'
-  },
+  }],
+  coTeachers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Profile'
+  }],
   name: {
     type: String,
     required: true
@@ -32,7 +36,14 @@ const sectionSchema = new Schema({
   students: {
     type: [{
       type: Schema.Types.ObjectId, 
-      ref: 'Student',
+      ref: 'Profile',
+      default: []
+    }]
+  },
+  waitlist: {
+    type: [{
+      type: Schema.Types.ObjectId, 
+      ref: 'Profile',
       default: []
     }]
   }
