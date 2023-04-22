@@ -6,7 +6,7 @@ const index = async (req, res) => {
     const districts = await District.find({})
     res.render('districts/index', { 
       title: 'Districts',
-      districts 
+      districts
     })
   } catch (err) {
     console.log(err)
