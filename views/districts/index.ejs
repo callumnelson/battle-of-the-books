@@ -19,7 +19,7 @@
       <div class="district-container">
         <div class="header">
           <h5> <%= district.name %> </h5>
-          <label> <%= district.schools.length ? 'Existing Schools' : 'No Existing Schools' %>
+          <label>Existing Schools (<%= district.schools.length %>) </label>
         </div>
         <ul class="list-group">
           <% district.schools.forEach( school => { %>
