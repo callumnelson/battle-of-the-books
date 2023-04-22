@@ -28,8 +28,16 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/students" class="<%= title === 'Library' ? 'active' : '' %>">
+              <a class="nav-link" href="/library" class="<%= title === 'Library' ? 'active' : '' %>">
                 Library
+              </a>
+            </li>
+            <% } %>
+            <!-- ADMIN USER -->
+            <% if (user.profile.role > 200) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/districts" class="<%= title === 'Districts' ? 'active' : '' %>">
+                Districts
               </a>
             </li>
             <% } %>

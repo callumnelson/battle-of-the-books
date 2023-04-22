@@ -77,7 +77,7 @@ main {
   margin: 0;
 }
 
-.sections-container {
+.content-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -93,4 +93,8 @@ main {
 .page-nav-container {
   display: flex;
   gap: 10px;
+}
+
+.active {
+  color: white;
 }
