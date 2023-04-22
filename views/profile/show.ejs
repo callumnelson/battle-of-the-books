@@ -1,0 +1,56 @@
+<%- include('../partials/html-head') %>
+
+<%- include('../partials/nav') %>
+
+<main>
+  <!-- TEACHER & ADMIN PROFILE -->
+  <section class="page-header-container">
+    <div>
+      <h1 class="page-header">Your Profile</h1>
+    </div>
+    <div class="page-nav-container">
+      <% if (user.profile.role > 100) { %>
+        <a class="btn btn-outline-info" role="button" id="new-section-btn" href="/profile/edit">
+          Edit Profile
+        </a>
+      <% } %>
+    </div>
+  </section>
+  <section class="content-container">
+    <table id="profile-info-list" class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">District</th>
+          <th scope="col">School</th>
+          <th scope="col"># Sections</th>
+          <th scope="col"># Books Checked Out</th>
+          <th scope="col"># Finished Books</th>
+          <th scope="col"># Open Tickets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= profile.name %> </td>
+          <td> <%= profile.district.name %> </td>
+          <td> <%= profile.school %> </td>
+          <td> <%= profile.sections.length %> %></td>
+          <td> <%= profile.currentBooks.length %> </td>
+          <td> <%= profile.finishedBooks.length %> </td>
+          <td> <%= profile.tickets.length %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <% if (user.profile.role > 100) { %>
+    
+
+  <!-- STUDENT PROFILE -->
+  <% } else { %>
+    
+
+
+  <% } %>
+</main>
+
+<%- include('../partials/footer') %>

@@ -18,12 +18,10 @@ const bookSchema = new Schema({
     type: Number,
     required: true
   },
-  readers: {
-    type: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Student'
-    }]
-  },
+  readers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Student'
+  }],
   publisher: {
     type: String
   },

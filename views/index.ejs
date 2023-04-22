@@ -27,80 +27,62 @@
           data-context="use"
         ></div>
       </div>
-  <!-- TEACHER -->
-  <% } else if (user.profile.role > 100) { %>
-    <!-- IF THERE ARE SECTIONS, SHOW THE SCOREBOARD -->
-    <% if (!user.profile.isSignedUp) { %>
-      <h1>Let's get started</h1>
-      <form action="/<%= user.profile._id %>/?_method=PATCH" method="POST">
+
+  <!-- IF THE USER ISN'T SIGNED UP, SELECT DISTRICT AND SCHOOL -->
+  <% } else if (!user.profile.isSignedUp) { %>
+    <h1>Let's get started</h1>
+      <form action="/profile/update?_method=PATCH" method="POST">
         <div class="form-group">
           <label for="district-input">Select Your District</label>
-          <select name="districtName" id="district-input" class="form-control" required>
+          <select name="district" id="district-input" class="form-control" required>
             <% districts.forEach( district => { %>
               <option 
-                value="<%= district.name %>"
+                value="<%= district._id %>"
                 class="<%= district.name.toLowerCase().replaceAll(' ', '-') %> district"
-              ><%= district.name %></option>
-            <% }) %>
-            <option value="Add New District">
-              Add New District
-            </option>
+              >
+                <%= district.name %>
+              </option>
+              <% }) %>
           </select>
-        </div>
-        <div class="form-group" id="new-district-container">
-          <label for="new-district-input">District Name:</label>
-          <input name="newDistrictName" id="new-district-input" class="form-control" placeholder="District name">
-          </input>
         </div>
         <div class="form-group">
           <label for="school-input">Select Your School</label>
-          <select name="schoolName" id="school-input" class="form-control" required>
+          <select name="school" id="school-input" class="form-control" required>
             <% districts.forEach( district => { %>
               <% district.schools.forEach( school => { %>
                 <option 
-                  class="<%= school.toLowerCase().replace(' ', '-') %> school" 
-                  value="<%= school %>"
+                class="<%= school.toLowerCase().replace(' ', '-') %> school" 
+                value="<%= school %>"
                 >
-                  <%= school %>
-                </option>
+                <%= school %>
+              </option>
               <% }) %>
-            <% }) %>
-            <option>
-              Add New School
-            </option>
-          </select>
-        </div>
-        <div class="form-group" id="new-school-container">
-          <label for="new-district-input">School Name:</label>
-          <input name="newSchoolName" id="new-district-input" class="form-control" placeholder="School name">
-          </input>
-        </div>
-        <button type="submit" class="btn btn-success">
-          Submit
-        </button>
-      </form>
-    <!-- IF THERE ARE NO SECTIONS, PROMPT TO CREATE SOME -->
-    <% } else if (!user.profile.sections.length) { %>
+              <% }) %>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success">
+            Submit
+          </button>
+        </form>
+  <!-- IF THERE ARE NO SECTIONS, PROMPT TO CREATE SOME -->
+  <% } else if (user.profile.role > 100) { %>
+    <% if (!user.profile.sections.length) { %>
       <h1>You're ready create some sections</h1>
       <a class="btn btn-outline-info" role="button" href="/sections">Sections</a>
     <!-- We're signed up and have sections -->
     <% } else { %>
       <h1>SCOREBOARD GOES HERE</h1>
     <% } %>
-  
-  <!-- STUDENT -->
+  <!-- STUDENT ROLE  -->
   <% } else { %>
-    <!-- If not signed up, sign up for a district and a school -->
-    <% if (!user.profile.isSignedUp) { %>
+    <% if (!user.profile.sections.length) { %>
       <h1>You aren't in any classes yet!</h1>
       <h2>Click the button to join a class and get started</h2>
       <a class="btn btn-outline-info" role="button" href="/sections">Join Section</a>
-    <% } else if (!user.profile.isEnrolled) { %> 
+    <% } else  { %> 
       <h1> Welcome back, <%= user.profile.name %>!</h1>
       <h2> Let's read! </h2>
-    <% } else { %>
-
-    <% } %>
+    <% }  %>
   <% } %>
 </main>
 

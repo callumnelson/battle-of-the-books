@@ -18,11 +18,18 @@ const profileSchema = new Schema({
   }],
   currentBooks: [{
     type: Schema.Types.ObjectId,
-    ref: 'Book'
+    ref: 'Book',
+    default: []
   }],
   finishedBooks: [{
     type: Schema.Types.ObjectId,
-    ref: 'Book'
+    ref: 'Book',
+    default: []
+  }],
+  tickets: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Ticket',
+    default: []
   }],
   ellStatus: {
     type: Boolean,
@@ -37,6 +44,7 @@ const profileSchema = new Schema({
     required: true,
     //100 > student
     //200 > teacher
+    //300 > admin
     default: 100
   },
   isSignedUp: {
@@ -46,6 +54,9 @@ const profileSchema = new Schema({
   district: {
     type: Schema.Types.ObjectId,
     ref: 'District'
+  },
+  school: {
+    type: String,
   }
 }, {
   timestamps: true

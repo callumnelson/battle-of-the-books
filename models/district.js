@@ -10,7 +10,6 @@ const districtSchema = new Schema({
   },
   schools: [{
     type: String,
-    default: []
   }]
 }, {
   timestamps: true

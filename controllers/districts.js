@@ -2,12 +2,15 @@ import { District } from '../models/district.js'
 
 const index = async (req, res) => {
   try {
-    console.log('Districts Index')
-    const districts = await District.find({})
-    res.render('districts/index', { 
-      title: 'Districts',
-      districts
-    })
+    if (req.user.profile.role > 200){
+      const districts = await District.find({})
+      res.render('districts/index', { 
+        title: 'Districts',
+        districts
+      })
+    } else {
+      throw new Error('Access denied')
+    }
   } catch (err) {
     console.log(err)
     res.redirect('/')
@@ -16,8 +19,6 @@ const index = async (req, res) => {
 
 const createSchool = async (req, res) => {
   try {
-    console.log(req.user.profile.role)
-    console.log(req.params)
     //Only admin can add districts and schools
     if (req.user.profile.role > 200){
       const district = await District.findById(req.params.districtId)
