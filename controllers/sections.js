@@ -107,17 +107,19 @@ const deleteStudent = async (req, res) => {
     if (req.user.profile.role > 100) {
       const section = await Section.findById(req.params.sectionId)
       const student = await Profile.findById(req.params.profileId)
-      let email = student.email
-      //Remove student from section's students
-      section.students.remove(student._id)
+      //If we're removing them from the section and they were enrolled
+      if (section.students.includes(student._id)) {
+        //Remove student from section's students
+        section.students.remove(student._id)
+        //Remove section from student's profile
+      } else if (section.waitlist.includes(student._id)){
+        //Remove student from section's waitlist
+        section.waitlist.remove(student._id)
+      }
       await section.save()
-      //Remove section from student's profile and set signed up to false
-      student.sections.remove(section._id)
-      student.isSignedUp = false
-      await student.save()
       //Delete profile and user
-      Profile.findByIdAndDelete(student._id)
-      User.findOneAndDelete({email: email})
+      await Profile.findByIdAndDelete(student._id)
+      await User.findOneAndDelete({email: student.email})
       res.redirect(`/sections/${section._id}`)
     }else {
       throw new Error(`Access Denied: Only teachers can delete students`)

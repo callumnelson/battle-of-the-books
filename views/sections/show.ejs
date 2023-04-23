@@ -74,13 +74,13 @@
             <td> <%= student.name %> </td>
             <td> <%= student.email %> </td>
             <td>
-              <form action="/sections/<%= section._id %>/profiles/<%= student._id %>?_method=PATCH" method="POST">
+              <form action="/sections/<%= section._id %>/profiles/<%= student._id %>/admit?_method=PATCH" method="POST">
                 <input role="button" type="submit" value="Admit" class="btn btn-outline-success">
                 </input>
               </form>
             </td>
             <td>
-              <form action="/profiles/<%= student._id %>/?_method=DELETE" method="POST" class="delete-form">
+              <form action="/sections/<%= section._id %>/profiles/<%= student._id %>?_method=DELETE" method="POST" class="delete-form">
                 <input role="button" type="submit" value="Deny" class="btn btn-outline-danger">
                 </input>
               </form>
