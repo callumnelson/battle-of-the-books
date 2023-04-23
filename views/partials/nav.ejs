@@ -23,23 +23,18 @@
                 </a>
               </li>
             <% } %>
-            <!-- Only show additional paths once a user is signed up -->
-            <% if (user.profile.isSignedUp) { %>
-              <% if (user.profile.role > 100) { %>
-                <li class="nav-item">
-                  <a class="nav-link" href="/students" class="<%= title === 'Students' ? 'active' : '' %>">
-                    Students
-                  </a>
-                </li>
-              <% } %>
-              <!-- Teachers and students who are off the waitlist can see the library -->
-              <% if (user.profile.role > 100 || (user.profile.role < 200 && user.profile.sections.length)) { %>
-                <li class="nav-item">
-                  <a class="nav-link" href="/library" class="<%= title === 'Library' ? 'active' : '' %>">
-                    Library
-                  </a>
-                </li>
-              <% } %>
+            <!-- Only show additional paths once a user is signed up and has appropriate permissions / settings-->
+            <% if (user.profile.role > 100 || (user.profile.role < 200 && user.profile.sections.length)) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/library" class="<%= title === 'Library' ? 'active' : '' %>">
+                  Library
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tickets" class="<%= title === 'Tickets' ? 'active' : '' %>">
+                  Tickets
+                </a>
+              </li>
             <% } %>
             <!-- ADMIN USER -->
             <% if (user.profile.role > 200) { %>

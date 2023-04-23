@@ -6,7 +6,11 @@
   <!-- TEACHER & ADMIN PROFILE -->
   <section class="page-header-container">
     <div>
-      <h1 class="page-header">Your Profile</h1>
+      <% if (user.profile._id.equals(profile._id)) { %>
+        <h1 class="page-header">Your Profile</h1>
+      <% } else { %>
+        <h1 class="page-header"><%= profile.name %>'s Profile</h1>
+      <% } %>
     </div>
     <div class="page-nav-container">
       <% if (user.profile.role > 100) { %>
