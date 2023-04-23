@@ -10,7 +10,7 @@
     </div>
     <div class="page-nav-container">
       <% if (user.profile.role > 100) { %>
-        <a class="btn btn-outline-info" role="button" id="new-section-btn" href="/profile/edit">
+        <a class="btn btn-outline-info" role="button" id="new-section-btn" href="/profiles/<%= user.profile._id %>/edit">
           Edit Profile
         </a>
       <% } %>

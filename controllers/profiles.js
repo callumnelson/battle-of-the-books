@@ -4,10 +4,10 @@ import { Section } from '../models/section.js'
 
 const show = async (req, res) => {
   try {
-    const fullProfile = await Profile.findById(req.user.profile._id)
+    const fullProfile = await Profile.findById(req.params.profileId)
     .populate('district')
     res.render('profile/show', { 
-      title: req.user.profile.name,
+      title: fullProfile._id,
       profile: fullProfile
     })
   } catch (err) {
