@@ -1,26 +1,102 @@
-<table id="sections">
-  <thead>
-    <tr>
-      <th>Airline</th>
-      <th>Airport</th>
-      <th>Flight No.</th>
-      <th>Details</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% flights.forEach( flight => { %>
-      <tr>
-        <td><%= flight.airline %></td>
-        <td><%= flight.airport %></td>
-        <td><%= flight.flightNo %></td>
-        <td><a href="/flights/<%= flight._id %>">Details</a></td>
-        <td>
-          <form action="/flights/<%= flight._id %>?_method=DELETE"" method="POST" class="delete-form">
-            <button type="submit">X</button>
-          </form>
-        </td>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
+<%- include('../partials/html-head') %>
+<link rel="stylesheet" href="/stylesheets/books/index.css">
+<script defer src="/js/books/index.js"></script>
+<%- include('../partials/nav') %>
+
+<main>
+  <section class="page-header-container">
+    <div>
+      <h1 class="page-header">Books</h1>
+    </div>
+    <div class="page-nav-container">
+      <a class="btn btn-outline-info" role="button" id="new-search-btn">
+        Search
+      </a>
+    </div>
+  </section>
+  <section class="content-container">
+    <table id="books-list" class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author(s)</th>
+          <th scope="col"># Pages</th>
+          <th scope="col">Year Published</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% books. forEach( (book, i) => { %>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td> <%= book.title %> </td>
+            <td> 
+              <%= book.authors.length > 1 ? book.authors.join(', ') : book.authors[0]%> 
+            </td>
+            <td> <%= book.pageCount %> </td>
+            <td> <%= book.publishedDate.getFullYear() %> %></td>
+            <td>
+              <a href="/books/<%= book._id %>" role="button" class="btn btn-outline-primary">
+                Details
+              </a>
+            </td>
+            <td>
+              <form action="/books/<%= book._id %>/profiles/<%= user.profile._id %>/checkout?_method=PUT" method="POST" class="delete-form">
+                <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
+                </input>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="new-search-modal" class="modal-custom">
+    <div class="modal-wrapper">
+      <div class="modal-header">
+        <h3>Search for a Book</h3>
+        <span id="close-search-modal" class="close">X</span>
+      </div>
+      <div class="modal-content">
+        <form action="/books/search" method="GET">
+          <div class="form-group">  
+            <label for="name-input">Section Name</label>
+            <input type="text" class="form-control" name="name" id="name-input" placeholder="e.g. Red Class" required>
+          </div>
+          <div class="form-group">
+            <label for="grade-input">
+              Grade Level
+            </label>
+            <select name="gradeLevel" id="grade-input" class="form-control" required>
+              <option value="K">K</option>
+              <option value="1st">1st</option>
+              <option value="2nd">2nd</option>
+              <option value="3rd">3rd</option>
+              <option value="4th">4th</option>
+              <option value="5th">5th</option>
+              <option value="6th">6th</option>
+              <option value="7th">7th</option>
+              <option value="8th">8th</option>
+              <option value="9th">9th</option>
+              <option value="10th">10th</option>
+              <option value="11th">11th</option>
+              <option value="12th">12th</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="year-input">
+            School Year</label>
+              <input class="form-control" type="text" name="schoolYear" id="year-input" min="2020" max="2100" placeholder="e.g. 2023" required>
+          </div>
+          <button type="submit" class="btn btn-success">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

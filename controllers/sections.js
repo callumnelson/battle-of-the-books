@@ -59,7 +59,7 @@ const show = async (req, res) => {
           section
         })
       } else {
-        throw new Error(`That's not your section!`)
+        throw new Error(`Access Denied: Teachers can only see their own sections`)
       }
     } 
   } catch (err) {
@@ -73,11 +73,13 @@ const deleteSection = async (req, res) => {
     if (req.user.profile.role > 100){
       const section = await Section.findById(req.params.sectionId)
       // For each student enrolled, remove section from sections
+      //TODO remove all books, tickets from profile and reset to initial values
       const enrolledRes = await Profile.updateMany(
         { _id: { $in: section.students} }, 
         { isSignedUp: false, sections: [], district: null, school: '' }
       )
       //For each student in waitlist, set isSignedUp to false
+      //TODO remove all books, tickets from profile and reset to initial values
       const waitlistRes = await Profile.updateMany(
         { _id: { $in: section.waitlist} }, 
         { isSignedUp: false, district: null, school: '' }

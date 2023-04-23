@@ -12,7 +12,7 @@ router.get('/', isLoggedIn, districtsCtrl.index)
 // POST localhost:3000/districts
 router.post('/', isLoggedIn, districtsCtrl.create)
 
-// GET localhost:3000/:districtId
+// PATCH localhost:3000/districts/:districtId
 router.patch('/:districtId', isLoggedIn, districtsCtrl.createSchool)
 
 export {
