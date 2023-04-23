@@ -54,8 +54,12 @@ function showStudentFields(){
   if (+roleSelectEl.selectedOptions[0].value === 100) {
     teacherInputContEl.removeAttribute('hidden')
     sectionInputContEl.removeAttribute('hidden')
+    teacherSelectEl.setAttribute('required', '')
+    sectionSelectEl.setAttribute('required', '')
   }else {
     teacherInputContEl.setAttribute('hidden', '')
     sectionInputContEl.setAttribute('hidden', '')
+    teacherSelectEl.removeAttribute('required')
+    sectionSelectEl.removeAttribute('required')
   }
 }

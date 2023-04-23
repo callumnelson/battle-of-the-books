@@ -38,8 +38,7 @@ const update = async (req, res) => {
     }
     req.body.isSignedUp = true
 
-    
-    //Create the new profile
+    //Update the profile
     const profile = await Profile.findByIdAndUpdate(req.user.profile._id, {
       $set: req.body
     }, {new: true})

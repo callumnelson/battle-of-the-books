@@ -22,9 +22,10 @@
           <th scope="col">Section</th>
           <th scope="col">Year</th>
           <th scope="col">Grade Level</th>
-          <th scope="col">Number of Students</th>
-          <th scope="col">Number of ELLs</th>
-          <th scope="col">Number of SWDs</th>
+          <th scope="col"># of Students</th>
+          <th scope="col"># on Waitlist</th>
+          <th scope="col"># of ELLs</th>
+          <th scope="col"># of SWDs</th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
@@ -37,6 +38,7 @@
             <td> <%= section.schoolYear %> </td>
             <td> <%= section.gradeLevel %> </td>
             <td> <%= section.students.length %> %></td>
+            <td> <%= section.waitlist.length %> </td>
             <td> 0 </td>
             <td> 0 </td>
             <td>

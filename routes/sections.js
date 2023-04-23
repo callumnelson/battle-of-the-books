@@ -19,6 +19,9 @@ router.post('/', isLoggedIn, sectionsCtrl.create)
 // PATCH localhost:3000/sections/:sectionId/profiles/:profileId
 router.patch('/:sectionId/profiles/:profileId', isLoggedIn, sectionsCtrl.admitStudent)
 
+// PATCH localhost:3000/sections/:sectionId/profiles/:profileId
+router.delete('/:sectionId/profiles/:profileId', isLoggedIn, sectionsCtrl.deleteStudent)
+
 // DELETE localhost:3000/sections/:sectionId
 router.delete('/:sectionId', isLoggedIn, sectionsCtrl.delete)
 

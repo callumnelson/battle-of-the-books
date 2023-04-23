@@ -1,5 +1,6 @@
 import { Section } from '../models/section.js'
 import { Profile } from '../models/profile.js'
+import { User } from '../models/user.js'
 
 const index = async (req, res) => {
   try {
@@ -100,10 +101,38 @@ const admitStudent = async (req, res) => {
   }
 }
 
+const deleteStudent = async (req, res) => {
+  try {
+    //Only teachers can remove students
+    if (req.user.profile.role > 100) {
+      const section = await Section.findById(req.params.sectionId)
+      const student = await Profile.findById(req.params.profileId)
+      let email = student.email
+      //Remove student from section's students
+      section.students.remove(student._id)
+      await section.save()
+      //Remove section from student's profile and set signed up to false
+      student.sections.remove(section._id)
+      student.isSignedUp = false
+      await student.save()
+      //Delete profile and user
+      Profile.findByIdAndDelete(student._id)
+      User.findOneAndDelete({email: email})
+      res.redirect(`/sections/${section._id}`)
+    }else {
+      throw new Error(`Access Denied: Only teachers can delete students`)
+    }
+  } catch (err) {
+    console.log(err)
+    res.redirect(`/sections/${req.params.sectionId}`)
+  }
+}
+
 export {
   index,
   create,
   show,
   deleteSection as delete,
-  admitStudent
+  admitStudent,
+  deleteStudent
 }

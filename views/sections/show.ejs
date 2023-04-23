@@ -45,8 +45,8 @@
               </a>
             </td>
             <td>
-              <form action="/profile/<%= student._id %>?_method=DELETE" method="POST" class="delete-form">
-                <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
+              <form action="/sections/<%= section._id %>/profiles/<%= student._id %>?_method=DELETE" method="POST" class="delete-form">
+                <input role="button" type="submit" value="Remove" class="btn btn-outline-danger">
                 </input>
               </form>
             </td>
