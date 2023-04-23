@@ -16,6 +16,9 @@ router.get('/:sectionId', isLoggedIn, sectionsCtrl.show)
 // POST localhost:3000/sections
 router.post('/', isLoggedIn, sectionsCtrl.create)
 
+// PATCH localhost:3000/sections/:sectionId/profiles/:profileId
+router.patch('/:sectionId/profiles/:profileId', isLoggedIn, sectionsCtrl.admitStudent)
+
 // DELETE localhost:3000/sections/:sectionId
 router.delete('/:sectionId', isLoggedIn, sectionsCtrl.delete)
 

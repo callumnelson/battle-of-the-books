@@ -77,9 +77,33 @@ const deleteSection = async (req, res) => {
   }
 }
 
+const admitStudent = async (req, res) => {
+  try {
+    if (req.user.profile.role > 100 ){
+      const section = await Section.findById(req.params.sectionId)
+      const student = await Profile.findById(req.params.profileId)
+      //Remove from waitlist
+      section.waitlist.remove(student._id)
+      //Add to students list
+      section.students.push(student._id)
+      //Add section to student.sections
+      student.sections.push(section._id)    
+      await section.save()
+      await student.save()
+      res.redirect(`/sections/${section._id}`)
+    }else {
+      throw new Error(`Access Denied: Students can't admit students`)
+    }
+  } catch (err) {
+    console.log(err)
+    res.redirect(`/sections/${req.params.sectionId}`)
+  }
+}
+
 export {
   index,
   create,
   show,
-  deleteSection as delete
+  deleteSection as delete,
+  admitStudent
 }
