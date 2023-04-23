@@ -31,7 +31,3 @@ main {
 .g_id_signin {
   margin: 30px 0 10px 0;
 }
-
-#new-district-container, #new-school-container {
-  display: none;
-}

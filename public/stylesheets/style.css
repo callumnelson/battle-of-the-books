@@ -38,6 +38,10 @@ main {
   min-height: calc(100% - 66px - 60px);
 }
 
+nav {
+  min-height: 66px;
+}
+
 .navbar {
   margin: 0;
 }

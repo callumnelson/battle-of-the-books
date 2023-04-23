@@ -60,7 +60,7 @@ passport.deserializeUser(function (userId, done) {
   User.findById(userId)
   .populate('profile', 'name avatar role sections isSignedUp district')
   .then(user => {
-    user.profile.populate('district', 'name')
+    user.profile?.populate('district', 'name')
     .then(() => {
       done(null, user)
     })

@@ -33,12 +33,21 @@
     <h1>Let's get started</h1>
       <form action="/profile/update?_method=PATCH" method="POST">
         <div class="form-group">
+          <label for="role-input">I am a...</label>
+          <select name="role" id="role-input" class="form-control" required>
+            <option value="">--Choose a Role--</option>
+            <option value="100">Student</option>
+            <option value="200">Teacher</option>
+          </select>
+        </div>
+        <div class="form-group">
           <label for="district-input">Select Your District</label>
           <select name="district" id="district-input" class="form-control" required>
+            <option value="">--Choose a District--</option>
             <% districts.forEach( district => { %>
               <option 
                 value="<%= district._id %>"
-                class="<%= district.name.toLowerCase().replaceAll(' ', '-') %> district"
+                class="district"
               >
                 <%= district.name %>
               </option>
@@ -48,11 +57,12 @@
         <div class="form-group">
           <label for="school-input">Select Your School</label>
           <select name="school" id="school-input" class="form-control" required>
+            <option value="">--Choose a School--</option>
             <% districts.forEach( district => { %>
               <% district.schools.forEach( school => { %>
                 <option 
-                class="<%= school.toLowerCase().replace(' ', '-') %> school" 
-                value="<%= school %>"
+                  class="<%= district._id %> school" 
+                  value="<%= school %>"
                 >
                 <%= school %>
               </option>
@@ -60,6 +70,36 @@
               <% }) %>
             </select>
           </div>
+          <div class="form-group" id="teacher-input-container" hidden>
+            <label for="teacher-input">Select Your Teacher</label>
+              <select name="teacher" id="teacher-input" class="form-control">
+                <option value="">--Choose a Teacher--</option>
+                <% teachers.forEach( teacher => { %>
+                    <option 
+                      class="<%= teacher.district._id %> <%= teacher.school.toLowerCase().replaceAll(' ', '-') %> teacher" 
+                      value="<%= teacher._id %>"
+                    >
+                    <%= teacher.name %>
+                  </option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="form-group" id="section-input-container" hidden>
+              <label for="section-input">Select Your Section</label>
+              <select name="section" id="section-input" class="form-control">
+                <option value="">--Choose a Section--</option>
+                <% teachers.forEach( teacher => { %>
+                  <% teacher.sections.forEach( section => { %>
+                    <option 
+                      class="<%= teacher._id %> section" 
+                      value="<%= section._id %>"
+                      >
+                      <%= section.name %>
+                    </option>
+                  <% }) %>
+                <% }) %>
+              </select>
+            </div>
           <button type="submit" class="btn btn-success">
             Submit
           </button>
