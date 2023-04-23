@@ -15,23 +15,31 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/sections" class="<%= title === 'Sections' ? 'active' : '' %>">
-                Sections
-              </a>
-            </li>
+            <!-- Only show sections to teachers and above -->
+            <% if (user.profile.role > 100) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/sections" class="<%= title === 'Sections' ? 'active' : '' %>">
+                  Sections
+                </a>
+              </li>
+            <% } %>
             <!-- Only show additional paths once a user is signed up -->
             <% if (user.profile.isSignedUp) { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/students" class="<%= title === 'Students' ? 'active' : '' %>">
-                Students
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/library" class="<%= title === 'Library' ? 'active' : '' %>">
-                Library
-              </a>
-            </li>
+              <% if (user.profile.role > 100) { %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/students" class="<%= title === 'Students' ? 'active' : '' %>">
+                    Students
+                  </a>
+                </li>
+              <% } %>
+              <!-- Teachers and students who are off the waitlist can see the library -->
+              <% if (user.profile.role > 100 || (user.profile.role < 200 && user.profile.sections.length)) { %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/library" class="<%= title === 'Library' ? 'active' : '' %>">
+                    Library
+                  </a>
+                </li>
+              <% } %>
             <% } %>
             <!-- ADMIN USER -->
             <% if (user.profile.role > 200) { %>

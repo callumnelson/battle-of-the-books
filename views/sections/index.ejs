@@ -16,7 +16,7 @@
   </section>
   <section class="content-container">
     <table id="sections-list" class="table">
-      <thead>
+      <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
           <th scope="col">Section</th>
@@ -39,11 +39,6 @@
             <td> <%= section.students.length %> %></td>
             <td> 0 </td>
             <td> 0 </td>
-            <td> 
-              <a role="button" class="btn btn-outline-info">
-                Invite Link
-              </a>
-            </td>
             <td>
               <a href="/sections/<%= section._id %>" role="button" class="btn btn-outline-primary">
                 Details

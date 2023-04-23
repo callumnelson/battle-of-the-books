@@ -1,4 +1,5 @@
 <%- include('../partials/html-head') %>
+<link rel="stylesheet" href="/stylesheets/sections/show.css">
 <%- include('../partials/nav') %>
 
 <main>
@@ -7,20 +8,88 @@
       <h1 class="page-header"> <%= section.name %> </h1>
     </div>
     <div class="page-nav-container">
-      <a class="btn btn-outline-info" role="button" id="new-section-btn">
-        Edit Info
-      </a>
-      <a class="btn btn-outline-info" role="button" id="new-section-btn">
-        Add Student
-      </a>
+      <% if (user.profile.role > 100) { %>
+        <a class="btn btn-outline-info" role="button" id="new-section-btn">
+          Edit Info
+        </a>
+      <% } %>
     </div>
   </section>
-  <section class="details-container">
-    
+  <section class="content-container" id="enrolled-list-container">
+    <h3>Enrolled Students (<%= section.students.length %>)</h3>
+    <table id="enrolled-list" class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col"># Books Read</th>
+          <th scope="col"># Pages Read</th>
+          <th scope="col"># Currently Checked Out</th>
+          <th scope="col"># Tickets Pending</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% section.students.forEach( (student, i) => { %>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td> <%= student.name %> </td>
+            <td> <%= 0 //student.finishedBooks.length %> </td>
+            <td> <%= 0 //section.finishedBooks.reduce( (a, c) => a += c.pageCount) %> </td>
+            <td> <%= student.currentBooks.length %> %></td>
+            <td> <%= student.tickets.length %> </td>
+            <td>
+              <a href="/profile/<%= student._id %>" role="button" class="btn btn-outline-primary">
+                Profile
+              </a>
+            </td>
+            <td>
+              <form action="/profile/<%= student._id %>?_method=DELETE" method="POST" class="delete-form">
+                <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
+                </input>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
   </section>
-  <section class="students-container">
-
-  </section>
+  <section class="content-container" id="enrolled-list-container">
+    <h3>Waitlist (<%= section.waitlist.length %>)</h3>
+    <table id="waitlist-list" class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% section.waitlist.forEach( (student, i) => { %>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td> <%= student.name %> </td>
+            <td> <%= student.email %> </td>
+            <td>
+              <form action="/profile/<%= student._id %>?_method=PATCH" method="POST" class="delete-form">
+                <input role="button" type="submit" value="Admit" class="btn btn-outline-success">
+                </input>
+              </form>
+            </td>
+            <td>
+              <form action="/profile/<%= student._id %>?_method=DELETE" method="POST" class="delete-form">
+                <input role="button" type="submit" value="Deny" class="btn btn-outline-danger">
+                </input>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>  
 </main>
 
 <%- include('../partials/footer') %>

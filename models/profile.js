@@ -5,7 +5,13 @@ const Schema = mongoose.Schema
 const profileSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    lowercase: true,
+    unique: true,
   },
   avatar: {
     type: String,

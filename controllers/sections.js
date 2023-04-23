@@ -10,20 +10,9 @@ const index = async (req, res) => {
         title: 'Sections',
         teacher
       })
-    // A student is trying to load their sections
+    // A student is trying to load the sections page
     } else {
-      const student = await Profile.findById(req.user.profile._id)
-      .populate('sections')
-      //If they're enrolled in at least one section, show what they're enrolled in
-      if (student.sections.length) {
-        res.render('sections/index', {
-          title: 'Sections',
-          student
-        })
-      } else {
-        //TODO res.render message to ask a teacher for their signup code..?
-        res.redirect('/')
-      }
+      res.redirect('/')
     }
   } catch (err) {
     console.log(err)
@@ -61,7 +50,7 @@ const show = async (req, res) => {
     //If a teacher is trying to access the sections show page
     if (req.user.profile.role > 100){
       const section = await Section.findById(req.params.sectionId)
-      console.log(section)
+      .populate('students waitlist')
       //Make sure that this teacher is actually the owner of the section
       if (section.teachers.includes(req.user.profile._id)){
         res.render('sections/show', {
