@@ -70,8 +70,29 @@ const show = async (req, res) => {
 
 const deleteSection = async (req, res) => {
   try {
-    const deleted = await Section.findByIdAndDelete(req.params.sectionId)
-    res.redirect('/sections')
+    if (req.user.profile.role > 100){
+      const section = await Section.findById(req.params.sectionId)
+      // For each student enrolled, remove section from sections
+      const enrolledRes = await Profile.updateMany(
+        { _id: { $in: section.students} }, 
+        { isSignedUp: false, sections: [], district: null, school: '' }
+      )
+      //For each student in waitlist, set isSignedUp to false
+      const waitlistRes = await Profile.updateMany(
+        { _id: { $in: section.waitlist} }, 
+        { isSignedUp: false, district: null, school: '' }
+      )
+
+      //Remove section from teacher's section list
+      req.user.profile.sections.remove(section._id)
+      await req.user.profile.save()
+
+      //Delete section
+      await section.deleteOne()
+      res.redirect('/sections')
+    }else {
+      throw new Error(`Access denied: Students can't delete sections`)
+    }
   } catch (err) {
     console.log(err)
     res.redirect('/sections')
