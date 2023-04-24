@@ -7,11 +7,11 @@ section > h3 {
 }
 
 .modal-wrapper {
-  min-width: 500px;
+  min-width: 350px;
 }
 
-#title-input, #author-input, #pageCount-input {
-  max-width: 300px;
+#title-input, #author-input, #pageCount-input, #ticket-type-input {
+  max-width: 220px;
 }
 
 #review-input {

@@ -28,6 +28,7 @@
       </thead>
       <tbody>
         <% student.tickets.forEach( (ticket, i) => { %>
+          <% console.log(ticket) %>
           <tr>
             <th scope="row"><%= i+1 %></th>
             <td> <%= ticket.book.title %> </td>
@@ -59,27 +60,56 @@
         <span id="close-ticket-modal" class="close">X</span>
       </div>
       <div class="modal-content">
-        <form action="/tickets" method="POST">
-          <div class="form-group">  
-            <label for="title-input">Title</label>
-            <input type="text" class="form-control" name="title" id="title-input" required>
-          </div>
-          <div class="form-group">
-            <label for="author-input">Author</label>
-              <input class="form-control" type="text" name="author" id="author-input" required>
-          </div>
-          <div class="form-group">
-            <label for="pageCount-input"># Pages</label>
-              <input class="form-control" type="number" name="pageCount" id="pageCount-input" min="0" max="2000" required>
-          </div>
-          <div class="form-group">
-            <label for="review-input">Write a Review:</label>
+        <div class="form-group">
+          <label for="ticket-type-input">Submit a Ticket for...</label>
+          <select name="ticket-type" id="ticket-type-input" class="form-control" required>
+            <option value="">--Ticket Type--</option>
+            <option value="manual-form">A Manual Entry</option>
+            <option value="api-form">A Book I Checked Out</option>
+          </select>
+        </div>
+        <div id="api-form-wrapper">
+          <form action="/tickets/api" method="POST" id="api-form">
+            <div class="form-group">  
+              <label for="title-input">Select a Book</label>
+              <select name="bookId" id="title-input" class="form-control" required>
+                <% student.currentBooks.forEach( book => { %>
+                  <option value="<%= book._id %>"><%= book.title %></option>
+                  <% }) %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="review-input">Write a Review:</label>
               <textarea class="form-control" type="text" name="review" id="review-input" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-success">
-            Submit Ticket
-          </button>
-        </form>
+            </div>
+            <button type="submit" class="btn btn-success">
+              Submit Ticket
+            </button>
+          </form>
+        </div>
+        <div id="manual-form-wrapper">
+          <form action="/tickets/manual" method="POST" id="manual-form">
+            <div class="form-group">  
+              <label for="title-input">Title</label>
+              <input type="text" class="form-control" name="title" id="title-input" required>
+            </div>
+            <div class="form-group">
+              <label for="authors-input">Author</label>
+              <input class="form-control" type="text" name="authors" id="authors-input" required>
+            </div>
+            <div class="form-group">
+              <label for="pageCount-input"># Pages</label>
+                <input class="form-control" type="number" name="pageCount" id="pageCount-input" min="0" max="2000" required>
+            </div>
+            <div class="form-group">
+              <label for="review-input">Write a Review:</label>
+              <textarea class="form-control" type="text" name="review" id="review-input" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">
+              Submit Ticket
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </section>

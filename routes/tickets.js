@@ -13,7 +13,10 @@ router.get('/', isLoggedIn, ticketsCtrl.index)
 router.get('/:ticketId', isLoggedIn, ticketsCtrl.show)
 
 // POST localhost:3000/tickets
-router.post('/', isLoggedIn, ticketsCtrl.create)
+router.post('/api', isLoggedIn, ticketsCtrl.createApiTicket)
+
+// POST localhost:3000/tickets
+router.post('/manual', isLoggedIn, ticketsCtrl.createManualTicket)
 
 // PUT localhost:3000/tickets/:ticketId
 router.put('/:ticketId', isLoggedIn, ticketsCtrl.update)
