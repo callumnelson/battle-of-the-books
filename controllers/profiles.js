@@ -4,20 +4,25 @@ import { Section } from '../models/section.js'
 
 const show = async (req, res) => {
   try {
-    const fullProfile = await Profile.findById(req.params.profileId)
-    .populate('district')
-    .populate({
-      path: 'tickets'
-    })
-    .populate({path: 'sections', 
-        populate: {path: 'teachers', 
-          populate: {path: 'name'}
-      }
-    })
-    res.render('profile/show', { 
-      title: fullProfile._id,
-      profile: fullProfile
-    })
+    //Student accessing their own profile
+    if (req.user.profile._id.equals(req.params.profileId) && req.user.profile.role < 200){
+      const fullProfile = await Profile.findById(req.params.profileId)
+      .populate('district')
+      .populate({
+        path: 'tickets',
+          populate: {path: 'book'}
+      })
+      .populate({path: 'sections', 
+          populate: {path: 'teachers', 
+            populate: {path: 'name'}
+        }
+      })
+      console.log(fullProfile.tickets[0].book)
+      res.render('profile/show', { 
+        title: fullProfile._id,
+        profile: fullProfile
+      })
+    }
   } catch (err) {
     console.log(err)
     res.redirect('/')

@@ -27,11 +27,6 @@ const profileSchema = new Schema({
     ref: 'Book',
     default: []
   }],
-  finishedBooks: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Book',
-    default: []
-  }],
   tickets: [{
     type: Schema.Types.ObjectId,
     ref: 'Ticket',

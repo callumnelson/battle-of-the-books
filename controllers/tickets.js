@@ -111,6 +111,7 @@ const createManualTicket = async (req, res) => {
 const approve = async (req, res) => {
   try {
     if (req.user.profile.role > 100){
+      //Update the ticket's status
       const ticket = await Ticket.findById(req.params.ticketId)
       ticket.status = true
       await ticket.save()

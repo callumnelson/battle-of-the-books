@@ -2,10 +2,6 @@
   align-items: start;
 }
 
-section > h3 {
-  margin-bottom: 20px;
-}
-
 .modal-wrapper {
   min-width: 350px;
 }

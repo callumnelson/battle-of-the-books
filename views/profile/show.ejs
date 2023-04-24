@@ -33,8 +33,9 @@
             <th scope="col">Teacher</th>
             <th scope="col">Section</th>
             <th scope="col"># Books Checked Out</th>
-            <th scope="col"># Approved Tickets</th>
-            <th scope="col"># Open Tickets</th>
+            <th scope="col"># Books Finished</th>
+            <th scope="col"># Pages Read</th>
+            <th scope="col"># Pending Tickets</th>
           </tr>
         </thead>
         <tbody>
@@ -45,14 +46,49 @@
             <td> <%= profile.sections[0].teachers[0].name %> %></td>
             <td> <%= profile.sections[0].name %> </td>
             <td> <%= profile.currentBooks.length %> </td>
-            <% console.log(profile.tickets) %>
             <td> <%= profile.tickets.reduce( (a, c) => a + c.status * 1, 0) %> </td>
+            <td> <%= profile.tickets.reduce( (a, c) => a + c.book.pageCount, 0) %> </td>
             <td> <%= profile.tickets.reduce( (a, c) => a + !c.status * 1, 0) %> </td>
           </tr>
         </tbody>
       </table>
     <% } %>
   </section>
+  <% if (user.profile.role < 200) { %>
+    <section class="content-container">
+      <h3>Books You've Read</h3>
+      <table id="books-list" class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author(s)</th>
+            <th scope="col"># Pages</th>
+            <th scope="col">Your Review</th>
+            <th scope="col">Year Published</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% profile.tickets.forEach( (ticket, i) => { %>
+            <% if (ticket.status) { %>
+              <tr>
+                <th scope="row"><%= i+1 %></th>
+                <td> <%= ticket.book.title %> </td>
+                <td> 
+                  <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
+                </td>
+                <td> <%= ticket.book.pageCount %> </td>
+                <td> <%= ticket.review %> </td>
+                <td> <%= ticket.book?.publishedDate?.getFullYear() %> %></td>
+              </tr>
+            <% } %>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  <% } %>
 </main>
 
 <%- include('../partials/footer') %>
