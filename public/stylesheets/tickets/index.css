@@ -10,10 +10,19 @@ section > h3 {
   min-width: 350px;
 }
 
-#title-input, #author-input, #pageCount-input, #ticket-type-input {
+#title-input, #authors-input, #pageCount-input, #ticket-type-input {
   max-width: 220px;
 }
 
 #review-input {
   min-height: 100px;
+}
+
+.review {
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.title {
+  max-width: 200px;
 }

@@ -3,11 +3,35 @@ import { Profile } from '../models/profile.js'
 import { Book } from '../models/book.js'
 
 const index = async (req, res) => {
-  try {
-    //TODO teacher should see all the tickets for all their students
+  try { 
     if (req.user.profile.role > 100) {
+      const teacher = await Profile.findById(req.user.profile._id)
+      .populate({path: 'sections', 
+        populate: {path: 'students',
+          populate: {path: 'tickets',
+            populate: {path: 'book'}
+          }
+        }
+      })
+      const tickets = []
+      teacher.sections.forEach( section => {
+        section.students.forEach( student => {
+          student.tickets.forEach( ticket => {
+            tickets.push({
+              ticket: ticket,
+              student: student,
+              section: section
+            })
+          })
+        })
+      })
 
-    //TODO student should only see their tickets
+      res.render('tickets/index', {
+        title: 'Tickets',
+        tickets,
+        currentBooks: []
+      })
+      
     } else {
       const student = await Profile.findById(req.user.profile._id)
       .populate({path: 'tickets', populate: { path: 'book' }})
