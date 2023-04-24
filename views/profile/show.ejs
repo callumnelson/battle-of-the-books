@@ -21,40 +21,37 @@
     </div>
   </section>
   <section class="content-container">
-    <table id="profile-info-list" class="table">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">District</th>
-          <th scope="col">School</th>
-          <th scope="col"># Sections</th>
-          <th scope="col"># Books Checked Out</th>
-          <th scope="col"># Finished Books</th>
-          <th scope="col"># Open Tickets</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td> <%= profile.name %> </td>
-          <td> <%= profile.district.name %> </td>
-          <td> <%= profile.school %> </td>
-          <td> <%= profile.sections.length %> %></td>
-          <td> <%= profile.currentBooks.length %> </td>
-          <td> <%= profile.finishedBooks.length %> </td>
-          <td> <%= profile.tickets.length %> </td>
-        </tr>
-      </tbody>
-    </table>
+    <% if (user.profile.role > 100) { %>
+      <!-- Teacher version of profile goes here -->
+    <% } else { %>
+      <table id="profile-info-list" class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">District</th>
+            <th scope="col">School</th>
+            <th scope="col">Teacher</th>
+            <th scope="col">Section</th>
+            <th scope="col"># Books Checked Out</th>
+            <th scope="col"># Finished Books</th>
+            <th scope="col"># Open Tickets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= profile.name %> </td>
+            <td> <%= profile.district.name %> </td>
+            <td> <%= profile.school %> </td>
+            <td> <%= profile.sections[0].teachers[0].name %> %></td>
+            <td> <%= profile.sections[0].name %> </td>
+            <td> <%= profile.currentBooks.length %> </td>
+            <td> <%= profile.finishedBooks.length %> </td>
+            <td> <%= profile.tickets.length %> </td>
+          </tr>
+        </tbody>
+      </table>
+    <% } %>
   </section>
-  <% if (user.profile.role > 100) { %>
-    
-
-  <!-- STUDENT PROFILE -->
-  <% } else { %>
-    
-
-
-  <% } %>
 </main>
 
 <%- include('../partials/footer') %>

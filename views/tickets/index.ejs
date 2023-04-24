@@ -14,40 +14,92 @@
       </a>
     </div>
   </section>
+  <!-- Sort with most recent at the top -->
+  <% student.tickets.sort((a, b) => b.createdAt - a.createdAt) %>
   <section class="content-container">
-    <h3>Pending Tickets (<%= student.tickets.length %>) </h3>
-    <table id="tickets-list" class="table">
+    <h3>Pending Tickets (<%= student.tickets.reduce( (a, c) => a + !c.status * 1, 0) %>) </h3>
+    <table id="pending-list" class="table">
       <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Date Created</th>
           <th scope="col">Title</th>
           <th scope="col">Author(s)</th>
           <th scope="col"># Pages</th>
+          <th scope="col"># Points</th>
+          <th scope="col"></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <% student.tickets.forEach( (ticket, i) => { %>
-          <% console.log(ticket) %>
-          <tr>
-            <th scope="row"><%= i+1 %></th>
-            <td> <%= ticket.book.title %> </td>
-            <td> 
-              <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
-            </td>
-            <td> <%= ticket.book.pageCount %> </td>
-            <td>
-              <a href="/tickets/<%= ticket._id %>" role="button" class="btn btn-outline-primary">
-                Details
-              </a>
-            </td>
-            <td>
-              <form action="/tickets/<%= ticket._id %>/profiles/<%= user.profile._id %>?_method=DELETE" method="POST" class="delete-form">
-                <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
-                </input>
-              </form>
-            </td>
-          </tr>
+          <% if (!ticket.status) { %>
+            <tr>
+              <th scope="row"><%= i+1 %></th>
+              <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
+              <td> <%= ticket.book.title %> </td>
+              <td> 
+                <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
+              </td>
+              <td> <%= ticket.book.pageCount %> </td>
+              <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
+              <td>
+                <a href="/tickets/<%= ticket._id %>" role="button" class="btn btn-outline-primary">
+                  Details
+                </a>
+              </td>
+              <td>
+                <form action="/tickets/<%= ticket._id %>/profiles/<%= user.profile._id %>?_method=DELETE" method="POST" class="delete-form">
+                  <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
+                  </input>
+                </form>
+              </td>
+            </tr>
+          <% } %>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+  <section class="content-container">
+    <h3>Approved Tickets (<%= student.tickets.reduce( (a, c) => a + c.status * 1, 0) %>) </h3>
+    <table id="pending-list" class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author(s)</th>
+          <th scope="col"># Pages</th>
+          <th scope="col"># Points</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% student.tickets.forEach( (ticket, i) => { %>
+          <% if (ticket.status) { %>
+            <tr>
+              <th scope="row"><%= i+1 %></th>
+              <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
+              <td> <%= ticket.book.title %> </td>
+              <td> 
+                <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
+              </td>
+              <td> <%= ticket.book.pageCount %> </td>
+              <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
+              <td>
+                <a href="/tickets/<%= ticket._id %>" role="button" class="btn btn-outline-primary">
+                  Details
+                </a>
+              </td>
+              <td>
+                <form action="/tickets/<%= ticket._id %>/profiles/<%= user.profile._id %>?_method=DELETE" method="POST" class="delete-form">
+                  <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
+                  </input>
+                </form>
+              </td>
+            </tr>
+          <% } %>
         <% }) %>
       </tbody>
     </table>
