@@ -80,7 +80,8 @@ const update = async (req, res) => {
       throw new Error(`Access Denied: Students can't edit section info`)
     }
   } catch (err) {
-    
+    console.log(err)
+    res.redirect('/sections')
   }
 }
 

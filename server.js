@@ -25,6 +25,7 @@ import { router as sectionsRouter } from './routes/sections.js'
 import { router as districtsRouter } from './routes/districts.js'
 import { router as profilesRouter } from './routes/profiles.js'
 import { router as booksRouter } from './routes/books.js'
+import { router as ticketsRouter } from './routes/tickets.js'
 
 // create the express app
 const app = express()
@@ -69,6 +70,7 @@ app.use('/sections', sectionsRouter)
 app.use('/districts', districtsRouter)
 app.use('/profiles', profilesRouter)
 app.use('/books', booksRouter)
+app.use('/tickets', ticketsRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

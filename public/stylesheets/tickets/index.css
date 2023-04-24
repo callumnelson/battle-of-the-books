@@ -1,0 +1,19 @@
+.content-container {
+  align-items: start;
+}
+
+section > h3 {
+  margin-bottom: 20px;
+}
+
+.modal-wrapper {
+  min-width: 500px;
+}
+
+#title-input, #author-input, #pageCount-input {
+  max-width: 300px;
+}
+
+#review-input {
+  min-height: 100px;
+}

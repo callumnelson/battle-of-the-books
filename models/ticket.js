@@ -8,7 +8,7 @@ const ticketSchema = new Schema({
     ref: 'Profile',
     required: true
   },
-  content: {
+  review: {
     type: String,
     required: true
   },
