@@ -6,7 +6,7 @@
 <main>
   <section class="page-header-container">
     <div>
-      <h1 class="page-header">Class Library</h1>
+      <h1 class="page-header">Book Search</h1>
     </div>
     <div class="page-nav-container">
       <a class="btn btn-outline-info" role="button" id="new-search-btn">
@@ -24,10 +24,11 @@
           <th scope="col"># Pages</th>
           <th scope="col">Year Published</th>
           <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <% books. forEach( (book, i) => { %>
+        <% books.forEach( (book, i) => { %>
           <tr>
             <th scope="row"><%= i+1 %></th>
             <td> <%= book.title %> </td>
@@ -35,15 +36,15 @@
               <%= book.authors.length > 1 ? book.authors.join(', ') : book.authors[0]%> 
             </td>
             <td> <%= book.pageCount %> </td>
-            <td> <%= book.publishedDate.getFullYear() %> %></td>
+            <td> <%= book?.publishedDate?.getFullYear() %> %></td>
             <td>
               <a href="/books/<%= book._id %>" role="button" class="btn btn-outline-primary">
                 Details
               </a>
             </td>
             <td>
-              <form action="/books/<%= book._id %>/profiles/<%= user.profile._id %>/checkout?_method=PUT" method="POST" class="delete-form">
-                <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
+              <form action="/books/<%= book._id %>/profiles/<%= user.profile._id %>/checkout?_method=PUT" method="POST">
+                <input role="button" type="submit" value="Checkout" class="btn btn-outline-success">
                 </input>
               </form>
             </td>

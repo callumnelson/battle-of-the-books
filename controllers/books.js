@@ -2,10 +2,9 @@ import { Book } from '../models/book.js'
 
 const index = async (req, res) => {
   try {
-    const books = await Book.find({})
     res.render('books/index', {
       title: 'Books',
-      books
+      books: []
     })
   } catch (err) {
     console.log(err)
@@ -49,14 +48,14 @@ const search = async (req, res) => {
     
     const books = []
     if(data.totalItems){
-      // let filtered = data.items.filter( book => book.pageCount )
+      data.items = data.items.filter( book => book.volumeInfo.pageCount > 0 )
       data.items.forEach( book => {
         book.googleId = book.id
         books.push(new Book(book.volumeInfo))
       })
     }
-    res.render('books/searchResults', {
-      title: 'Search Results',
+    res.render('books/index', {
+      title: 'Book Search',
       books
     })
     
