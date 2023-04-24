@@ -33,7 +33,7 @@
             <th scope="col">Teacher</th>
             <th scope="col">Section</th>
             <th scope="col"># Books Checked Out</th>
-            <th scope="col"># Finished Books</th>
+            <th scope="col"># Approved Tickets</th>
             <th scope="col"># Open Tickets</th>
           </tr>
         </thead>
@@ -45,8 +45,9 @@
             <td> <%= profile.sections[0].teachers[0].name %> %></td>
             <td> <%= profile.sections[0].name %> </td>
             <td> <%= profile.currentBooks.length %> </td>
-            <td> <%= profile.finishedBooks.length %> </td>
-            <td> <%= profile.tickets.length %> </td>
+            <% console.log(profile.tickets) %>
+            <td> <%= profile.tickets.reduce( (a, c) => a + c.status * 1, 0) %> </td>
+            <td> <%= profile.tickets.reduce( (a, c) => a + !c.status * 1, 0) %> </td>
           </tr>
         </tbody>
       </table>

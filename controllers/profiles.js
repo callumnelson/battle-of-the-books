@@ -6,8 +6,14 @@ const show = async (req, res) => {
   try {
     const fullProfile = await Profile.findById(req.params.profileId)
     .populate('district')
-    .populate({path: 'sections', populate: {path: 'teachers', populate: {path: 'name'}}})
-    console.log(fullProfile)
+    .populate({
+      path: 'tickets'
+    })
+    .populate({path: 'sections', 
+        populate: {path: 'teachers', 
+          populate: {path: 'name'}
+      }
+    })
     res.render('profile/show', { 
       title: fullProfile._id,
       profile: fullProfile

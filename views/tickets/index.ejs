@@ -171,7 +171,6 @@
             <th scope="col"># Pages</th>
             <th scope="col"># Points</th>
             <th scope="col" class="review">Review</th>
-            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -187,12 +186,6 @@
                 <td> <%= ticket.book.pageCount %> </td>
                 <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
                 <td class="review"> <%= ticket.review %> </td>
-                <td>
-                  <form action="/tickets/<%= ticket._id %>?_method=DELETE" method="POST" class="delete-form">
-                    <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
-                    </input>
-                  </form>
-                </td>
               </tr>
             <% } %>
           <% }) %>
