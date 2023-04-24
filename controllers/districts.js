@@ -40,7 +40,7 @@ const create = async (req, res) => {
   try {
     //Only admin can add districts and schools
     if (req.user.profile.role > 200){
-      const newDistrict = District.create(req.body)
+      const newDistrict = await District.create(req.body)
       res.redirect('/districts')
     } else {
       throw new Error('Access denied')
