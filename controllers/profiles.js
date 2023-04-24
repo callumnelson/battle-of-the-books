@@ -17,7 +17,6 @@ const show = async (req, res) => {
             populate: {path: 'name'}
         }
       })
-      console.log(fullProfile.tickets[0].book)
       res.render('profile/show', { 
         title: fullProfile._id,
         profile: fullProfile
