@@ -18,8 +18,8 @@ router.post('/api', isLoggedIn, ticketsCtrl.createApiTicket)
 // POST localhost:3000/tickets
 router.post('/manual', isLoggedIn, ticketsCtrl.createManualTicket)
 
-// PUT localhost:3000/tickets/:ticketId
-router.put('/:ticketId', isLoggedIn, ticketsCtrl.update)
+// PATCH localhost:3000/tickets/:ticketId
+router.patch('/:ticketId/approve', isLoggedIn, ticketsCtrl.approve)
 
 // DELETE localhost:3000/tickets/:ticketId
 router.delete('/:ticketId', isLoggedIn, ticketsCtrl.delete)

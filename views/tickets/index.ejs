@@ -50,9 +50,10 @@
                 <td> <%= Math.ceil(ticket.ticket.book.pageCount/300) %> </td>
                 <td class="review"> <%= ticket.ticket.review %> </td>
                 <td>
-                  <a href="/tickets/<%= ticket.ticket._id %>?_method=PATCH" role="button" class="btn btn-outline-success">
-                    Approve
-                  </a>
+                  <form action="/tickets/<%= ticket.ticket._id %>/approve?_method=PATCH" method="POST" class="approve-form">
+                    <input role="button" type="submit" value="Approve" class="btn btn-outline-success">
+                    </input>
+                  </form>
                 </td>
                 <td>
                   <form action="/tickets/<%= ticket.ticket._id %>?_method=DELETE" method="POST" class="delete-form">

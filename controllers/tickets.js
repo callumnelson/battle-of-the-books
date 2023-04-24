@@ -25,7 +25,6 @@ const index = async (req, res) => {
           })
         })
       })
-
       res.render('tickets/index', {
         title: 'Tickets',
         tickets,
@@ -72,7 +71,7 @@ const show = async (req, res) => {
     
   } catch (err) {
     console.log(err)
-    res.redirect('/books')
+    res.redirect('/tickets')
   }
 }
 
@@ -81,7 +80,7 @@ const createApiTicket = async (req, res) => {
     
   } catch (err) {
     console.log(err)
-    res.redirect('/books')
+    res.redirect('/tickets')
   }
 }
 
@@ -105,15 +104,23 @@ const createManualTicket = async (req, res) => {
     }
   } catch (err) {
     console.log(err)
-    res.redirect('/books')
+    res.redirect('/tickets')
   }
 }
 
-const update = async (req, res) => {
+const approve = async (req, res) => {
   try {
-    
+    if (req.user.profile.role > 100){
+      const ticket = await Ticket.findById(req.params.ticketId)
+      ticket.status = true
+      await ticket.save()
+      res.redirect('/tickets')
+    }else {
+      throw new Error(`Access Denied: Students can't approve tickets`)
+    }
   } catch (err) {
-    
+    console.log(err)
+    res.redirect('/tickets')
   }
 }
 
@@ -122,6 +129,6 @@ export {
   show,
   createApiTicket,
   createManualTicket,
-  update,
+  approve,
   deleteTicket as delete
 }
