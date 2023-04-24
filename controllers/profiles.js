@@ -18,7 +18,7 @@ const show = async (req, res) => {
         }
       })
       res.render('profile/show', { 
-        title: fullProfile._id,
+        title: fullProfile.name,
         profile: fullProfile
       })
     }

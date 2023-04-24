@@ -20,10 +20,10 @@
       <% } %>
     </div>
   </section>
-  <section class="content-container">
-    <% if (user.profile.role > 100) { %>
-      <!-- Teacher version of profile goes here -->
-    <% } else { %>
+  <% if (user.profile.role > 100) { %>
+    <!-- Teacher version of profile goes here -->
+  <% } else { %>
+    <section class="content-container">
       <table id="profile-info-list" class="table">
         <thead>
           <tr>
@@ -55,6 +55,10 @@
     <% } %>
   </section>
   <% if (user.profile.role < 200) { %>
+    <section class="content-container">
+      <h3>Checked Out Books</h3>
+      
+    </section>
     <section class="content-container">
       <h3>Books You've Read</h3>
       <table id="books-list" class="table">
