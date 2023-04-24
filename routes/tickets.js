@@ -21,6 +21,9 @@ router.post('/manual', isLoggedIn, ticketsCtrl.createManualTicket)
 // PUT localhost:3000/tickets/:ticketId
 router.put('/:ticketId', isLoggedIn, ticketsCtrl.update)
 
+// DELETE localhost:3000/tickets/:ticketId
+router.delete('/:ticketId', isLoggedIn, ticketsCtrl.delete)
+
 export {
   router
 }

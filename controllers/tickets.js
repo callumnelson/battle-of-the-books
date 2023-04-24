@@ -11,14 +11,35 @@ const index = async (req, res) => {
     } else {
       const student = await Profile.findById(req.user.profile._id)
       .populate({path: 'tickets', populate: { path: 'book' }})
+      .populate({path: 'currentBooks'})
       res.render('tickets/index', {
         title: 'Tickets',
-        student
+        tickets: student.tickets,
+        currentBooks: student.currentBooks
       })
     }
   } catch (err) {
     console.log(err)
     res.redirect('/')
+  }
+}
+
+const deleteTicket = async(req, res) => {
+  try {
+    const ticket = await Ticket.findById(req.params.ticketId)
+    const owner = await Profile.findById(ticket.owner)
+    //You can only delete a ticket if it's yours or you're a teacher
+    if (ticket.owner.equals(req.user.profile._id) || req.user.profile.role > 100){
+      owner.tickets.remove(ticket._id)
+      await owner.save()
+      await ticket.deleteOne()
+      res.redirect('/tickets')
+    }else {
+      throw new Error(`Access Denied: Students can't delete other students' tickets`)
+    }
+  } catch (err) {
+    console.log(err)
+    res.redirect('/tickets')
   }
 }
 
@@ -78,4 +99,5 @@ export {
   createApiTicket,
   createManualTicket,
   update,
+  deleteTicket as delete
 }
