@@ -1,0 +1,47 @@
+<%- include('../partials/html-head') %>
+
+<%- include('../partials/nav') %>
+
+<main>
+  <section class="page-header-container">
+    <div>
+      <h1 class="page-header">Search Results</h1>
+    </div>
+    <div class="page-nav-container">
+    </div>
+  </section>
+  <section class="content-container">
+    <table id="books-list" class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author(s)</th>
+          <th scope="col"># Pages</th>
+          <th scope="col">Year Published</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% books. forEach( (book, i) => { %>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td> <%= book.title %> </td>
+            <td> 
+              <%= book.authors.length > 1 ? book.authors.join(', ') : book.authors[0]%> 
+            </td>
+            <td> <%= book.pageCount %> </td>
+            <td> <%= book.publishedDate.getFullYear() %> %></td>
+            <td>
+              <a href="/books/<%= book._id %>" role="button" class="btn btn-outline-primary">
+                Checkout
+              </a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

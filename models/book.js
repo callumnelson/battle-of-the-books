@@ -10,10 +10,10 @@ const bookSchema = new Schema({
   subtitle: {
     type: String
   },
-  authors: {
-    type: [String],
+  authors: [{
+    type: String,
     required: true
-  },
+  }],
   pageCount: {
     type: Number,
     required: true
@@ -37,6 +37,9 @@ const bookSchema = new Schema({
   ratingsCount: {
     type: Number
   },
+  categories: [{
+    type: String, 
+  }],
   googleId: {
     type: String
   }

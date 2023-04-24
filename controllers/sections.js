@@ -68,6 +68,22 @@ const show = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    if (req.user.profile.role > 100){
+      const section = await Section.findByIdAndUpdate(req.params.sectionId, 
+        req.body,
+        {new: true}
+      )
+      res.redirect('/sections')
+    }else {
+      throw new Error(`Access Denied: Students can't edit section info`)
+    }
+  } catch (err) {
+    
+  }
+}
+
 const deleteSection = async (req, res) => {
   try {
     if (req.user.profile.role > 100){
@@ -157,7 +173,8 @@ export {
   index,
   create,
   show,
+  update,
   deleteSection as delete,
   admitStudent,
-  deleteStudent
+  deleteStudent,
 }

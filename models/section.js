@@ -31,7 +31,7 @@ const sectionSchema = new Schema({
   gradeLevel: {
     type: String,
     required: true,
-    enum: ['K', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th']
+    enum: ['3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th']
   },
   students: {
     type: [{
