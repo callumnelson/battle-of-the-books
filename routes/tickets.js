@@ -9,9 +9,6 @@ import { isLoggedIn } from '../middleware/middleware.js'
 // GET localhost:3000/tickets
 router.get('/', isLoggedIn, ticketsCtrl.index)
 
-// GET localhost:3000/
-router.get('/:ticketId', isLoggedIn, ticketsCtrl.show)
-
 // POST localhost:3000/tickets
 router.post('/api', isLoggedIn, ticketsCtrl.createApiTicket)
 

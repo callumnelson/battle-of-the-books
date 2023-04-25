@@ -34,7 +34,7 @@ const index = async (req, res) => {
     } else {
       const student = await Profile.findById(req.user.profile._id)
       .populate({path: 'tickets', populate: { path: 'book' }})
-      .populate({path: 'currentBooks'})
+      .populate('currentBooks')
       res.render('tickets/index', {
         title: 'Tickets',
         tickets: student.tickets,
@@ -66,18 +66,19 @@ const deleteTicket = async(req, res) => {
   }
 }
 
-const show = async (req, res) => {
-  try {
-    
-  } catch (err) {
-    console.log(err)
-    res.redirect('/tickets')
-  }
-}
-
 const createApiTicket = async (req, res) => {
   try {
-    
+    const book = await Book.findById(req.body.bookId)
+    const student = await Profile.findById(req.user.profile._id)
+    const ticket = await Ticket.create({
+      owner: req.user.profile._id,
+      review: req.body.review,
+      status: false,
+      book: book._id
+    })
+    student.tickets.push(ticket)
+    await student.save()
+    res.redirect('/tickets')
   } catch (err) {
     console.log(err)
     res.redirect('/tickets')
@@ -115,6 +116,13 @@ const approve = async (req, res) => {
       const ticket = await Ticket.findById(req.params.ticketId)
       ticket.status = true
       await ticket.save()
+      const book = await Book.findById(ticket.book)
+      const owner = await Profile.findById(ticket.owner)
+      //If this is a checked out book take it off their checked out list
+      if (owner.currentBooks.includes(book._id)) {
+        owner.currentBooks.remove(book._id)
+        await owner.save()
+      }
       res.redirect('/tickets')
     }else {
       throw new Error(`Access Denied: Students can't approve tickets`)
@@ -127,7 +135,6 @@ const approve = async (req, res) => {
 
 export {
   index,
-  show,
   createApiTicket,
   createManualTicket,
   approve,
