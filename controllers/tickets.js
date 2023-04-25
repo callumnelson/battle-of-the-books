@@ -133,10 +133,47 @@ const approve = async (req, res) => {
   }
 }
 
+const edit = async (req, res) => {
+  try {
+    const toEdit = await Ticket.findById(req.params.ticketId)
+    if (req.user.profile.role < 200 && !toEdit.owner.equals(req.user.profile._id)){
+      throw new Error(`Access Denied: Students can't edit other students' tickets`)
+    }else {
+      const student = await Profile.findById(req.user.profile._id)
+      .populate({path: 'tickets', populate: { path: 'book' }})
+      res.render('tickets/edit', {
+        title: 'Edit Ticket',
+        tickets: student.tickets,
+        editId: toEdit._id
+      })
+    }
+  } catch (err) {
+    console.log(err)
+    res.redirect('/tickets')
+  }
+}
+
+const update = async (req, res) => {
+  try {
+    const toUpdate = await Ticket.findById(req.params.ticketId)
+    if (req.user.profile.role < 200 && !toUpdate.owner.equals(req.user.profile._id)){
+      throw new Error(`Access Denied: Students can't update other students' tickets`)
+    }else {
+      await Ticket.updateOne({_id: toUpdate._id}, {$set: req.body})
+      res.redirect('/tickets')
+    }
+  } catch (err) {
+    console.log(err)
+    res.redirect('/tickets')
+  }
+}
+
 export {
   index,
   createApiTicket,
   createManualTicket,
   approve,
-  deleteTicket as delete
+  deleteTicket as delete,
+  edit,
+  update
 }

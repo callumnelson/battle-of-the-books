@@ -1,17 +1,13 @@
 <%- include('../partials/html-head') %>
 <link rel="stylesheet" href="/stylesheets/tickets/index.css">
-<script defer src="/js/tickets/index.js"></script>
 <%- include('../partials/nav') %>
 
 <main>
   <section class="page-header-container">
     <div>
-      <h1 class="page-header">Tickets</h1>
+      <h1 class="page-header">Edit Ticket</h1>
     </div>
     <div class="page-nav-container">
-      <a class="btn btn-outline-info" role="button" id="new-ticket-btn">
-        Submit a Ticket
-      </a>
     </div>
   </section>
     <!-- Sort with most recent at the top -->
@@ -126,32 +122,64 @@
             <th scope="col"># Points</th>
             <th scope="col" class="review">Review</th>
             <th scope="col"></th>
-            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
           <% tickets.forEach( (ticket, i) => { %>
             <% if (!ticket.status) { %>
               <tr>
-                <th scope="row"><%= i+1 %></th>
-                <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
-                <td class="title"> <%= ticket.book.title %> </td>
-                <td> 
-                  <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
-                </td>
-                <td> <%= ticket.book.pageCount %> </td>
-                <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
-                <td class="review"> <%= ticket.review %> </td>
-                <td>
-                  <a href="/tickets/<%= ticket._id %>/edit" role="button" class="btn btn-outline-primary">
-                    Edit
-                  </a>
-                </td>
-                <td>
-                  <form action="/tickets/<%= ticket._id %>?_method=DELETE" method="POST" class="delete-form">
-                    <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
-                    </input>
+                <!-- If it's the ticket we want to edit and a manual entry -->
+                <% if (ticket._id.equals(editId) && !ticket.book.googleId) { %>
+                  <form action="/tickets/<%= ticket._id %>?_method=PUT" method="POST" class="update-form">
+                    <th scope="row"><%= i+1 %></th>
+                    <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
+                    <td class="title">
+                        <input type="text" class="form-control" name="title" id="title-input" value="<%= ticket.book.title %> " required>
+                    </td>
+                    <td> 
+                      <input class="form-control" type="text" name="authors" id="authors-input" value="<%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%>" required>
+                    </td>
+                    <td> 
+                      <input class="form-control" type="number" name="pageCount" id="pageCount-input" min="0" max="2000" value="<%= ticket.book.pageCount %>" required>
+                    </td>
+                    <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
+                    <td class="review"> 
+                      <textarea class="form-control" type="text" name="review" id="review-input" required><%= ticket.review %></textarea>
+                    </td>
+                    <td>
+                      <input role="button" type="submit" value="Save" class="btn btn-outline-success"></input>
+                    </td>
+                </form>
+                <!-- Library entry -->
+                <% } else if (ticket._id.equals(editId) && ticket.book.googleId) { %>
+                  <form action="/tickets/<%= ticket._id %>?_method=PUT" method="POST" class="update-form">
+                    <th scope="row"><%= i+1 %></th>
+                    <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
+                    <td class="title"> <%= ticket.book.title %> </td>
+                    <td> 
+                      <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
+                    </td>
+                    <td> <%= ticket.book.pageCount %> </td>
+                    <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
+                    <td class="review"> 
+                      <textarea class="form-control" type="text" name="review" id="review-input" required><%= ticket.review %></textarea>
+                    </td>
+                    <td>
+                      <input role="button" type="submit" value="Save" class="btn btn-outline-success"></input>
+                    </td>
                   </form>
+                <% } else { %>
+                  <th scope="row"><%= i+1 %></th>
+                  <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
+                  <td class="title"> <%= ticket.book.title %> </td>
+                  <td> 
+                    <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
+                  </td>
+                  <td> <%= ticket.book.pageCount %> </td>
+                  <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
+                  <td class="review"> <%= ticket.review %> </td>
+                  <td></td>
+                <% } %>
                 </td>
               </tr>
             <% } %>
@@ -193,67 +221,6 @@
       </table>
     </section>
   <% } %>
-  <section id="new-ticket-modal" class="modal-custom">
-    <div class="modal-wrapper">
-      <div class="modal-header">
-        <h3>New Ticket</h3>
-        <span id="close-ticket-modal" class="close">X</span>
-      </div>
-      <div class="modal-content">
-        <div class="form-group">
-          <label for="ticket-type-input">Submit a Ticket for...</label>
-          <select name="ticket-type" id="ticket-type-input" class="form-control" required>
-            <option value="">--Ticket Type--</option>
-            <option value="manual-form">A Manual Entry</option>
-            <option value="api-form">A Book I Checked Out</option>
-          </select>
-        </div>
-        <div id="api-form-wrapper">
-          <form action="/tickets/api" method="POST" id="api-form">
-            <div class="form-group">  
-              <label for="title-input">Select a Checked Out Book</label>
-              <select name="bookId" id="title-input" class="form-control" required>
-                <option value="">--Select a Book--</option>
-                <% currentBooks.forEach( book => { %>
-                  <option value="<%= book._id %>"><%= book.title %></option>
-                  <% }) %>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="review-input">Write a Review:</label>
-              <textarea class="form-control" type="text" name="review" id="review-input" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">
-              Submit Ticket
-            </button>
-          </form>
-        </div>
-        <div id="manual-form-wrapper">
-          <form action="/tickets/manual" method="POST" id="manual-form">
-            <div class="form-group">  
-              <label for="title-input">Title</label>
-              <input type="text" class="form-control" name="title" id="title-input" required>
-            </div>
-            <div class="form-group">
-              <label for="authors-input">Author(s)</label>
-              <input class="form-control" type="text" name="authors" id="authors-input" required>
-            </div>
-            <div class="form-group">
-              <label for="pageCount-input"># Pages</label>
-                <input class="form-control" type="number" name="pageCount" id="pageCount-input" min="0" max="2000" required>
-            </div>
-            <div class="form-group">
-              <label for="review-input">Write a Review:</label>
-              <textarea class="form-control" type="text" name="review" id="review-input" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">
-              Submit Ticket
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <%- include('../partials/footer') %>
