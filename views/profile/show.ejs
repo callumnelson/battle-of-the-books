@@ -27,6 +27,7 @@
   <!-- Teacher accessing a student's profile or student accessing their own profile -->
   <% } else { %>
     <section class="content-container">
+      <h3>Basic Info</h3>
       <table id="profile-info-list" class="table">
         <thead>
           <tr>
@@ -35,10 +36,6 @@
             <th scope="col">School</th>
             <th scope="col">Teacher</th>
             <th scope="col">Section</th>
-            <th scope="col"># Books Checked Out</th>
-            <th scope="col"># Books Finished</th>
-            <th scope="col"># Pages Read</th>
-            <th scope="col"># Pending Tickets</th>
           </tr>
         </thead>
         <tbody>
@@ -48,6 +45,23 @@
             <td> <%= profile.school %> </td>
             <td> <%= profile.sections[0].teachers[0].name %> %></td>
             <td> <%= profile.sections[0].name %> </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="content-container">
+      <h3>Reading Stats</h3>
+      <table id="profile-info-list" class="table">
+        <thead>
+          <tr>
+            <th scope="col"># Books Checked Out</th>
+            <th scope="col"># Books Finished</th>
+            <th scope="col"># Pages Read</th>
+            <th scope="col"># Pending Tickets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
             <td> <%= profile.currentBooks.length %> </td>
             <td> <%= profile.tickets.reduce( (a, c) => a + c.status * 1, 0) %> </td>
             <td> <%= profile.tickets.reduce( (a, c) => a + c.book.pageCount, 0) %> </td>
