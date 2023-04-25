@@ -12,14 +12,11 @@ router.get('/', isLoggedIn, booksCtrl.index)
 // GET localhost:3000/
 router.get('/:bookId', isLoggedIn, booksCtrl.show)
 
-// POST localhost:3000/:bookId
-router.post('/:bookId')
-
 // GET localhost:3000/books/search
 router.post('/search', isLoggedIn, booksCtrl.search)
 
-// PUT localhost:3000/books/:bookId/profiles/:profileId
-router.put('/books/:bookId/profiles/:profileId', booksCtrl.checkout)
+// PUT localhost:3000/books/:bookId
+router.put('/:bookGoogleId/checkout', isLoggedIn, booksCtrl.checkout)
 
 export {
   router

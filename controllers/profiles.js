@@ -27,6 +27,7 @@ const show = async (req, res) => {
             populate: {path: 'name'}
         }
       })
+      .populate('currentBooks')
       res.render('profile/show', { 
         title: fullProfile.name,
         profile: fullProfile

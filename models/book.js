@@ -41,7 +41,8 @@ const bookSchema = new Schema({
     type: String, 
   }],
   googleId: {
-    type: String
+    type: String,
+    unique: true
   }
 }, {
   timestamps: true
