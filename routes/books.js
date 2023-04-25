@@ -12,8 +12,8 @@ router.get('/', isLoggedIn, booksCtrl.index)
 // GET localhost:3000/
 router.get('/:bookId', isLoggedIn, booksCtrl.show)
 
-// POST localhost:3000/books
-router.post('/', isLoggedIn, booksCtrl.create)
+// POST localhost:3000/:bookId
+router.post('/:bookId')
 
 // GET localhost:3000/books/search
 router.post('/search', isLoggedIn, booksCtrl.search)

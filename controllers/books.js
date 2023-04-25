@@ -5,7 +5,8 @@ const index = async (req, res) => {
     res.render('books/index', {
       title: 'Book Search',
       books: [],
-      results: 0
+      results: 0,
+      searchTerms: undefined
     })
   } catch (err) {
     console.log(err)
@@ -14,15 +15,6 @@ const index = async (req, res) => {
 }
 
 const show = async (req, res) => {
-  try {
-    
-  } catch (err) {
-    console.log(err)
-    res.redirect('/books')
-  }
-}
-
-const create = async (req, res) => {
   try {
     
   } catch (err) {
@@ -67,7 +59,8 @@ const search = async (req, res) => {
     res.render('books/index', {
       title: 'Search Results',
       books,
-      results : books.length
+      results : books.length,
+      searchTerms: req.body
     })
     
   } catch (err) {
@@ -79,7 +72,6 @@ const search = async (req, res) => {
 export {
   index,
   show,
-  create,
   checkout,
   search
 }

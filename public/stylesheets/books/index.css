@@ -1,0 +1,10 @@
+.content-container > .searchterms-container {
+  align-self: center;
+}
+
+.searchterms-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 24px;
+}

@@ -15,6 +15,18 @@
     </div>
   </section>
   <section class="content-container">
+    <% if (searchTerms) { %>
+      <div class="searchterms-container">
+        <% if (searchTerms.title) { %>
+          <p><strong>Title:  </strong></p>
+          <p><%= searchTerms.title %></p>
+        <% } %>
+        <% if (searchTerms.author) { %>
+          <p><strong>Author: </strong></p>
+          <p><%= searchTerms.author %></p>
+        <% } %>
+      </div>
+    <% } %>
     <table id="books-list" class="table">
       <thead class="thead-light">
         <tr>
@@ -43,7 +55,7 @@
               </a>
             </td>
             <td>
-              <form action="/books/<%= book._id %>/profiles/<%= user.profile._id %>/checkout?_method=PUT" method="POST">
+              <form action="/books/<%= book._id %>/checkout?_method=PUT" method="POST">
                 <input role="button" type="submit" value="Checkout" class="btn btn-outline-success">
                 </input>
               </form>
