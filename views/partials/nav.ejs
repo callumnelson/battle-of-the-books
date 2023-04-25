@@ -26,7 +26,7 @@
             <!-- Only show additional paths once a user is signed up and has appropriate permissions / settings-->
             <% if (user.profile.role > 100 || (user.profile.role < 200 && user.profile.sections.length)) { %>
               <li class="nav-item">
-                <a class="nav-link <%= title === 'Books' ? 'active' : '' %>" href="/books" >
+                <a class="nav-link <%= title === 'Book Search' || title==='Search Results' ? 'active' : '' %>" href="/books" >
                   Books
                 </a>
               </li>
