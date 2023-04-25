@@ -13,15 +13,19 @@
       <% } %>
     </div>
     <div class="page-nav-container">
-      <% if (user.profile.role > 100) { %>
+      <% if (user.profile.role > 100 && user.profile._id.equals(profile._id)) { %>
         <a class="btn btn-outline-info" role="button" id="new-section-btn" href="/profiles/<%= user.profile._id %>/edit">
           Edit Profile
         </a>
       <% } %>
     </div>
   </section>
-  <% if (user.profile.role > 100) { %>
+  <!-- Teacher accessing their own profile -->
+  <% if (user.profile.role > 100 && user.profile._id.equals(profile._id)) { %>
     <!-- Teacher version of profile goes here -->
+
+
+  <!-- Teacher accessing a student's profile or student accessing their own profile -->
   <% } else { %>
     <section class="content-container">
       <table id="profile-info-list" class="table">
@@ -52,9 +56,7 @@
           </tr>
         </tbody>
       </table>
-    <% } %>
-  </section>
-  <% if (user.profile.role < 200) { %>
+    </section>
     <section class="content-container">
       <h3>Checked Out Books</h3>
       

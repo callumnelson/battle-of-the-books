@@ -4,8 +4,18 @@ import { Section } from '../models/section.js'
 
 const show = async (req, res) => {
   try {
-    //Student accessing their own profile
-    if (req.user.profile._id.equals(req.params.profileId) && req.user.profile.role < 200){
+    let accessedId = undefined
+    //Student accessing their own profile or teacher accessing any profile
+    if ((req.user.profile._id.equals(req.params.profileId) && req.user.profile.role < 200)){
+      accessedId = req.params.profileId
+    //Teacher accessing a student's profile
+    } else if (req.user.profile.role > 100 && !req.user.profile._id.equals(req.params.profileId)) {
+      accessedId = req.params.profileId
+    //Teacher accessing their own profile
+    } else if (req.user.profile.role > 100 && req.user.profile._id.equals(req.params.profileId)){
+      accessedId = req.params.profileId
+    }
+    if (accessedId){
       const fullProfile = await Profile.findById(req.params.profileId)
       .populate('district')
       .populate({
@@ -21,6 +31,8 @@ const show = async (req, res) => {
         title: fullProfile.name,
         profile: fullProfile
       })
+    }else {
+      throw new Error(`Access Denied: Inadequate permissions to access profile`)
     }
   } catch (err) {
     console.log(err)
