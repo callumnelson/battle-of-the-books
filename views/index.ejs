@@ -34,7 +34,7 @@
       <form action="/profiles/<%= user.profile._id %>/update?_method=PATCH" method="POST">
         <div class="form-group">
           <label for="role-input">I am a...</label>
-          <select name="role" id="role-input" class="form-control" required>
+          <select name="role" id="role-input" class="form-select" required>
             <option value="">--Choose a Role--</option>
             <option value="100">Student</option>
             <option value="200">Teacher</option>
@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
           <label for="district-input">Select Your District</label>
-          <select name="district" id="district-input" class="form-control" required>
+          <select name="district" id="district-input" class="form-select" required>
             <option value="">--Choose a District--</option>
             <% districts.forEach( district => { %>
               <option 
@@ -56,7 +56,7 @@
         </div>
         <div class="form-group">
           <label for="school-input">Select Your School</label>
-          <select name="school" id="school-input" class="form-control" required>
+          <select name="school" id="school-input" class="form-select" required>
             <option value="">--Choose a School--</option>
             <% districts.forEach( district => { %>
               <% district.schools.forEach( school => { %>
@@ -72,7 +72,7 @@
           </div>
           <div class="form-group" id="teacher-input-container" hidden>
             <label for="teacher-input">Select Your Teacher</label>
-              <select name="teacher" id="teacher-input" class="form-control">
+              <select name="teacher" id="teacher-input" class="form-select">
                 <option value="">--Choose a Teacher--</option>
                 <% teachers.forEach( teacher => { %>
                     <option 
@@ -86,7 +86,7 @@
             </div>
             <div class="form-group" id="section-input-container" hidden>
               <label for="section-input">Select Your Section</label>
-              <select name="section" id="section-input" class="form-control">
+              <select name="section" id="section-input" class="form-select">
                 <option value="">--Choose a Section--</option>
                 <% teachers.forEach( teacher => { %>
                   <% teacher.sections.forEach( section => { %>

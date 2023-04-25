@@ -202,7 +202,7 @@
       <div class="modal-content">
         <div class="form-group">
           <label for="ticket-type-input">Submit a Ticket for...</label>
-          <select name="ticket-type" id="ticket-type-input" class="form-control" required>
+          <select name="ticket-type" id="ticket-type-input" class="form-select" required>
             <option value="">--Ticket Type--</option>
             <option value="manual-form">A Manual Entry</option>
             <option value="api-form">A Book I Checked Out</option>
@@ -212,7 +212,7 @@
           <form action="/tickets/api" method="POST" id="api-form">
             <div class="form-group">  
               <label for="title-input">Select a Checked Out Book</label>
-              <select name="bookId" id="title-input" class="form-control" required>
+              <select name="bookId" id="title-input" class="form-select" required>
                 <option value="">--Select a Book--</option>
                 <% currentBooks.forEach( book => { %>
                   <option value="<%= book._id %>"><%= book.title %></option>

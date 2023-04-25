@@ -117,8 +117,8 @@
             <th scope="col">Title</th>
             <th scope="col">Author(s)</th>
             <th scope="col"># Pages</th>
-            <th scope="col">Your Review</th>
             <th scope="col">Year Published</th>
+            <th scope="col">Review</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -133,8 +133,8 @@
                   <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
                 </td>
                 <td> <%= ticket.book.pageCount %> </td>
-                <td> <%= ticket.review %> </td>
                 <td> <%= ticket.book?.publishedDate?.getFullYear() %> %></td>
+                <td> <%= ticket.review %> </td>
               </tr>
             <% } %>
           <% }) %>
