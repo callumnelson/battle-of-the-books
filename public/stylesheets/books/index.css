@@ -8,3 +8,7 @@
   gap: 5px;
   font-size: 24px;
 }
+
+th, td {
+  max-width: 250px;
+}

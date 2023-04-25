@@ -45,7 +45,18 @@
             <th scope="row"><%= i+1 %></th>
             <td> <%= book.title %> </td>
             <td> 
-              <%= book.authors.length > 1 ? book.authors.join(', ') : book.authors[0]%> 
+              <%
+                let printedAuthors 
+                if (book.authors.length > 3){
+                  printedAuthors = book.authors.splice(0, 3).join(', ') + 
+                  ` (${book.authors.length - 3} others...)`
+                } else if (book.authors.length > 1){
+                  printedAuthors = book.authors.join(', ')
+                }else {
+                  printedAuthors = book.authors[0]
+                }
+              %> 
+              <%= printedAuthors %>
             </td>
             <td> <%= book.pageCount %> </td>
             <td> <%= book?.publishedDate?.getFullYear() %> %></td>
