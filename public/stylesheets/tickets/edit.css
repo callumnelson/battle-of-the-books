@@ -1,0 +1,12 @@
+.content-container {
+  align-items: start;
+}
+
+.review {
+  max-width: 200px;
+  word-wrap: break-word;
+}
+
+.title {
+  max-width: 150px;
+}
