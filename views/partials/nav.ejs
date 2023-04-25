@@ -18,7 +18,7 @@
             <!-- Only show sections to teachers and above -->
             <% if (user.profile.role > 100) { %>
               <li class="nav-item">
-                <a class="nav-link" href="/sections" class="<%= title === 'Sections' ? 'active' : '' %>">
+                <a class="nav-link <%= title === 'Sections' ? 'active' : '' %>" href="/sections">
                   Sections
                 </a>
               </li>
@@ -26,12 +26,12 @@
             <!-- Only show additional paths once a user is signed up and has appropriate permissions / settings-->
             <% if (user.profile.role > 100 || (user.profile.role < 200 && user.profile.sections.length)) { %>
               <li class="nav-item">
-                <a class="nav-link" href="/books" class="<%= title === 'Books' ? 'active' : '' %>">
+                <a class="nav-link <%= title === 'Books' ? 'active' : '' %>" href="/books" >
                   Books
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/tickets" class="<%= title === 'Tickets' ? 'active' : '' %>">
+                <a class="nav-link <%= title === 'Tickets' ? 'active' : '' %>" href="/tickets">
                   Tickets
                 </a>
               </li>
@@ -39,7 +39,7 @@
             <!-- ADMIN USER -->
             <% if (user.profile.role > 200) { %>
             <li class="nav-item">
-              <a class="nav-link" href="/districts" class="<%= title === 'Districts' ? 'active' : '' %>">
+              <a class="nav-link <%= title === 'Districts' ? 'active' : '' %>" href="/districts">
                 Districts
               </a>
             </li>
