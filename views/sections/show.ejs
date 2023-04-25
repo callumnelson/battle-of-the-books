@@ -22,10 +22,9 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
-          <th scope="col"># Books Read</th>
-          <th scope="col"># Pages Read</th>
-          <th scope="col"># Currently Checked Out</th>
-          <th scope="col"># Tickets Pending</th>
+          <th scope="col"># Books Checked Out</th>
+          <th scope="col"># Books Finished</th>
+          <th scope="col"># Pending Tickets</th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
@@ -35,10 +34,9 @@
           <tr>
             <th scope="row"><%= i+1 %></th>
             <td> <%= student.name %> </td>
-            <td> <%= 0 //student.finishedBooks.length %> </td>
-            <td> <%= 0 //section.finishedBooks.reduce( (a, c) => a += c.pageCount) %> </td>
-            <td> <%= student.currentBooks.length %> %></td>
-            <td> <%= student.tickets.length %> </td>
+            <td> <%= student.currentBooks.length %> </td>
+            <td> <%= student.tickets.reduce( (a, c) => a + c.status * 1, 0) %> </td>
+            <td> <%= student.tickets.reduce( (a, c) => a + !c.status * 1, 0) %> </td>
             <td>
               <a href="/profiles/<%= student._id %>" role="button" class="btn btn-outline-primary">
                 Profile

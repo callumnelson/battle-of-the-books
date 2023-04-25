@@ -51,7 +51,10 @@ const show = async (req, res) => {
     //If a teacher is trying to access the sections show page
     if (req.user.profile.role > 100){
       const section = await Section.findById(req.params.sectionId)
-      .populate('students waitlist')
+      .populate({path: 'students',
+        populate: {path: 'tickets'}
+      })
+      .populate('waitlist')
       //Make sure that this teacher is actually the owner of the section
       if (section.teachers.includes(req.user.profile._id)){
         res.render('sections/show', {
