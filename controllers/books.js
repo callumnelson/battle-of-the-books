@@ -3,8 +3,9 @@ import { Book } from '../models/book.js'
 const index = async (req, res) => {
   try {
     res.render('books/index', {
-      title: 'Books',
-      books: []
+      title: 'Book Search',
+      books: [],
+      results: 0
     })
   } catch (err) {
     console.log(err)
@@ -43,20 +44,30 @@ const search = async (req, res) => {
   try {
     req.body.title = req.body.title ? req.body.title.replaceAll(' ', '%20') : ''
     req.body.author = req.body.author ? req.body.author.replaceAll(' ', '%20') : ''
-    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.title}+inauthor:${req.body.author}&printType=books&maxResults=40`)
-    const data = await response.json()
-    
+    let query
+    if (req.body.title && req.body.author){
+      query = `intitle:${req.body.title}+inauthor:${req.body.author}`
+    }else if (req.body.title){
+      query = `intitle:${req.body.title}`
+    }else if (req.body.author){
+      query = `inauthor:${req.body.author}`
+    }
     const books = []
-    if(data.totalItems){
-      data.items = data.items.filter( book => book.volumeInfo.pageCount > 0 )
-      data.items.forEach( book => {
-        book.googleId = book.id
-        books.push(new Book(book.volumeInfo))
-      })
+    if (query){
+      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&printType=books&maxResults=40`)
+      const data = await response.json()
+      if(data.totalItems){
+        data.items = data.items.filter( book => book.volumeInfo.pageCount > 0 )
+        data.items.forEach( book => {
+          book.googleId = book.id
+          books.push(new Book(book.volumeInfo))
+        })
+      }
     }
     res.render('books/index', {
-      title: 'Book Search',
-      books
+      title: 'Search Results',
+      books,
+      results : books.length
     })
     
   } catch (err) {
