@@ -22,9 +22,8 @@
   </section>
   <!-- Teacher accessing their own profile -->
   <% if (user.profile.role > 100 && user.profile._id.equals(profile._id)) { %>
-    <!-- Teacher version of profile goes here -->
-
-
+  <!-- Teacher version of profile goes here -->
+    <img src="" alt="">
   <!-- Teacher accessing a student's profile or student accessing their own profile -->
   <% } else { %>
     <section class="content-container">
