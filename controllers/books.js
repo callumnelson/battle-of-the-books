@@ -41,7 +41,7 @@ const checkout = async (req, res) => {
       profile.currentBooks.push(newBook)
       await profile.save()
     }
-    res.redirect(`/profiles/${req.user.profile._id}`)
+    res.redirect(`/books`)
   } catch (err) {
     console.log(err)
     res.redirect('/books')
