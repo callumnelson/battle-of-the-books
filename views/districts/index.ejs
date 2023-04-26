@@ -18,8 +18,17 @@
     <% districts.forEach( district => { %>
       <div class="district-container">
         <div class="header">
-          <h5> <%= district.name %> </h5>
-          <label>Existing Schools (<%= district.schools.length %>) </label>
+          <div class="header-text">
+            <h5> <%= district.name %> </h5>
+            <p>Existing Schools (<%= district.schools.length %>) </p>
+          </div>
+          <!-- Can't delete the admin district -->
+          <% if (district.name !== 'Test Admin District') { %>
+            <form action="/districts/<%= district._id %>?_method=DELETE" method="POST" class="delete-form">
+              <input role="button" type="submit" value="X" class="btn btn-outline-danger">
+              </input>
+            </form>
+          <% } %>
         </div>
         <ul class="list-group">
           <% district.schools.forEach( school => { %>
@@ -28,7 +37,6 @@
             </li>
           <% }) %>
         </ul>
-        </label>
         <form action="/districts/<%= district._id %>/?_method=PATCH" method="POST">
           <div class="form-group">
             <label for="new-school-input">New School</label>

@@ -1,4 +1,6 @@
 import { District } from '../models/district.js'
+import { Profile } from '../models/profile.js'
+import { User } from '../models/user.js'
 
 const index = async (req, res) => {
   try {
@@ -51,8 +53,29 @@ const create = async (req, res) => {
   }
 }
 
+const deleteDistrict = async (req, res) => {
+  try {
+    //Only admin can take this action
+    if (req.user.profile.role > 200){
+      const toDelete = await District.findById(req.params.districtId)
+      const districtProfiles = await Profile.find({district: req.params.districtId})
+      const districtEmails = districtProfiles.map(prof => prof.email)
+      await Profile.deleteMany({_id: toDelete._id})
+      await User.deleteMany({email: {$in: districtEmails}})
+      await toDelete.deleteOne()
+      res.redirect('/districts')
+    }else {
+      throw new Error(`Access Denied: Inadequate permissions to delete district`)
+    }
+  } catch (err) {
+    console.log(err)
+    res.redirect('/')
+  }
+}
+
 export {
   index,
   createSchool,
-  create
+  create,
+  deleteDistrict as delete,
 }

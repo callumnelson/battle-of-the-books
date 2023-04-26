@@ -23,3 +23,8 @@
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
