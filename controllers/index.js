@@ -7,7 +7,7 @@ const index = async (req, res) => {
     if (req.user?.profile.sections.length > 0){
       res.redirect('/scoreboard')
     } else {
-      const districts = await District.find({name: {$ne: 'Test Admin District'}})
+      const districts = await District.find({name: {$ne: 'Admin District'}})
       .populate('schools')
       //Only get profiles of teachers. Not admin or students
       const teachers = await Profile.find({role: 200})

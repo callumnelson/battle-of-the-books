@@ -23,7 +23,7 @@
             <p>Existing Schools (<%= district.schools.length %>) </p>
           </div>
           <!-- Can't delete the admin district -->
-          <% if (district.name !== 'Test Admin District') { %>
+          <% if (district.name !== 'Admin District') { %>
             <form action="/districts/<%= district._id %>?_method=DELETE" method="POST" class="delete-form">
               <input role="button" type="submit" value="X" class="btn btn-outline-danger">
               </input>
@@ -34,6 +34,11 @@
           <% district.schools.forEach( school => { %>
             <li class="list-group-item">
               <%= school %>
+              <form action="/districts/<%= district._id %>/deleteSchool?_method=DELETE" method="POST" class="delete-form">
+                <input type="text" value="<%= school %>" name="school" hidden>
+                <input role="button" type="submit" value="X" class="btn btn-outline-danger delete-school">
+                </input>
+              </form>
             </li>
           <% }) %>
         </ul>

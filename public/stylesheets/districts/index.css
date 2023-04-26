@@ -26,5 +26,18 @@
 
 .header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-school {
+  padding: 2px;
+  font-size: 12px;
+  width: 24px;
 }

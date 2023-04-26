@@ -18,6 +18,9 @@ router.patch('/:districtId', isLoggedIn, districtsCtrl.createSchool)
 // DELETE localhost:3000/districts/:districtId
 router.delete('/:districtId', isLoggedIn, districtsCtrl.delete)
 
+// DELETE localhost:3000/districts/:districtId
+router.delete('/:districtId/deleteSchool', isLoggedIn, districtsCtrl.deleteSchool)
+
 export {
   router
 }
