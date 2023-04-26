@@ -134,7 +134,7 @@
                     <th scope="row"><%= i+1 %></th>
                     <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
                     <td class="title">
-                        <input type="text" class="form-control" name="title" id="title-input" value="<%= ticket.book.title %> " required>
+                        <input type="text" class="form-control" name="title" id="title-input" value="<%= ticket.book.title %>" required>
                     </td>
                     <td> 
                       <input class="form-control" type="text" name="authors" id="authors-input" value="<%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%>" required>

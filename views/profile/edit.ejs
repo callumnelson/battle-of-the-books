@@ -5,20 +5,183 @@
 <main>
   <section class="page-header-container">
     <div>
-      <h1 class="page-header">Edit Profile</h1>
+      <% if (user.profile._id.equals(editId)) { %>
+        <h1 class="page-header">Edit Your Profile</h1>
+      <% } else { %>
+        <h1 class="page-header">Edit <%= student.name %>'s Profile</h1>
+      <% } %>
     </div>
     <div class="page-nav-container">
-      
     </div>
   </section>
-  <!-- TEACHER EDIT PROFILE -->
-  <% if (user.profile.role > 100) { %>
-
-  <!-- STUDENT PROFILE -->
-  <% } else { %>
-    
-
-
+  <!-- Teacher editing student's profile -->
+  <% if (user.profile.role > 100 && !user.profile._id.equals(editId)) { %>
+    <section class="content-container">
+      <h3>Basic Info</h3>
+      <table id="profile-info-list" class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">School</th>
+            <th scope="col">Teacher</th>
+            <th scope="col">Section</th>
+            <th scope="col">ELL</th>
+            <th scope="col">SWD</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <form action="/profiles/<%= student._id %>?_method=PUT" method="POST" class="update-form">
+              <td> 
+                <input type="text" class="form-control" name="name" id="name-input" value="<%= student.name %>" required>
+              </td>
+              <td> <%= student.school %> </td>
+              <td> <%= teacher.name %> </td>
+              <td> 
+                <select name="sections" id="sections-input" class="form-select">
+                  <% teacher.sections.forEach( section => { %>
+                    <option 
+                      value="<%= section._id %>"
+                      <%= section.name === student.sections[0].name ? 'selected' : '' %>
+                    >
+                      <%= section.name %>
+                    </option>
+                  <% }) %>
+                </select>
+              </td>
+              <td> 
+                <select name="ellStatus" id="ellStatus-input" class="form-select">
+                  <option 
+                    value="true" 
+                    <%= student.ellStatus ? 'selected' : '' %>
+                  >
+                    Yes
+                  </option>
+                  <option 
+                    value="false"
+                    <%= student.ellStatus ? '' : 'selected' %>
+                  >
+                    No
+                  </option>
+                </select>
+              </td>
+              <td> 
+                <select name="swdStatus" id="swdStatus-input" class="form-select">
+                  <option 
+                    value="true" 
+                    <%= student.swdStatus ? 'selected' : '' %>
+                  >
+                    Yes
+                  </option>
+                  <option 
+                    value="false"
+                    <%= student.swdStatus ? '' : 'selected' %>
+                  >
+                    No
+                  </option>
+                </select>  
+              </td>
+              <td>
+                <input role="button" type="submit" value="Save" class="btn btn-outline-success"></input>
+              </td>
+            </form>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="content-container">
+      <h3>Reading Stats</h3>
+      <table id="profile-info-list" class="table">
+        <thead>
+          <tr>
+            <th scope="col"># Books Checked Out</th>
+            <th scope="col"># Books Finished</th>
+            <th scope="col"># Pages Read</th>
+            <th scope="col"># Pending Tickets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= student.currentBooks.length %> </td>
+            <td> <%= student.tickets.reduce( (a, c) => a + c.status * 1, 0) %> </td>
+            <td> <%= student.tickets.reduce( (a, c) => a + c.book.pageCount, 0) %> </td>
+            <td> <%= student.tickets.reduce( (a, c) => a + !c.status * 1, 0) %> </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="content-container">
+      <h3>Checked Out Books</h3>
+      <table id="books-list" class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author(s)</th>
+            <th scope="col"># Pages</th>
+            <th scope="col">Year Published</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% student.currentBooks.forEach( (book, i) => { %>
+            <tr>
+              <th scope="row"><%= i+1 %></th>
+              <td> <%= book.title %> </td>
+              <td> 
+                <%
+                  let printedAuthors 
+                  if (book.authors.length > 3){
+                    printedAuthors = book.authors.splice(0, 3).join(', ') + 
+                    ` (${book.authors.length - 3} others...)`
+                  } else if (book.authors.length > 1){
+                    printedAuthors = book.authors.join(', ')
+                  }else {
+                    printedAuthors = book.authors[0]
+                  }
+                %> 
+                <%= printedAuthors %>
+              </td>
+              <td> <%= book.pageCount %> </td>
+              <td> <%= book.publishedDate.getFullYear() %> %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+    <section class="content-container">
+      <h3>Finished Books</h3>
+      <table id="books-list" class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author(s)</th>
+            <th scope="col"># Pages</th>
+            <th scope="col">Year Published</th>
+            <th scope="col">Review</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% student.tickets.forEach( (ticket, i) => { %>
+            <% if (ticket.status) { %>
+              <tr>
+                <th scope="row"><%= i+1 %></th>
+                <td> <%= ticket.book.title %> </td>
+                <td> 
+                  <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
+                </td>
+                <td> <%= ticket.book.pageCount %> </td>
+                <td> <%= ticket.book?.publishedDate?.getFullYear() %> </td>
+                <td> <%= ticket.review %> </td>
+              </tr>
+            <% } %>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
   <% } %>
 </main>
 

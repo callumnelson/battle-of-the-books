@@ -31,7 +31,7 @@
   <!-- IF THE USER ISN'T SIGNED UP, SELECT DISTRICT AND SCHOOL -->
   <% } else if (!user.profile.isSignedUp) { %>
     <h1>Let's get started</h1>
-      <form action="/profiles/<%= user.profile._id %>/update?_method=PATCH" method="POST">
+      <form action="/profiles/<%= user.profile._id %>/profilesetup?_method=PATCH" method="POST">
         <div class="form-group">
           <label for="role-input">I am a...</label>
           <select name="role" id="role-input" class="form-select" required>

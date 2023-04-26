@@ -9,11 +9,14 @@ import { isLoggedIn } from '../middleware/middleware.js'
 // GET localhost:3000/profile
 router.get('/:profileId', isLoggedIn, profileCtrl.show)
 
-// GET localhost:3000/profiles/edit
-router.get('/edit', isLoggedIn, profileCtrl.edit)
+// GET localhost:3000/profiles/:profileId/edit
+router.get('/:profileId/edit', isLoggedIn, profileCtrl.edit)
+
+// PATCH localhost:3000/profiles/:profileId/profilesetup
+router.patch('/:profileId/profilesetup', isLoggedIn, profileCtrl.setUpProfile)
 
 // GET localhost:3000/profiles/:profileId/update
-router.patch('/:profileId/update', isLoggedIn, profileCtrl.update)
+router.put('/:profileId', isLoggedIn, profileCtrl.update)
 
 export {
   router
