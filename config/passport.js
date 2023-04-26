@@ -59,7 +59,16 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (userId, done) {
   User.findById(userId)
-  .populate('profile', 'name avatar role sections isSignedUp district')
+  .populate('profile', 'name avatar role isSignedUp district')
+  .populate({
+    path: 'profile',
+      populate: {
+        path: 'sections',
+          populate: {
+            path: 'waitlist students.tickets'
+          }
+      }
+  })
   .then(user => {
     user?.profile?.populate('district', 'name')
     .then(() => {

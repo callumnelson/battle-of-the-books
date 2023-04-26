@@ -12,11 +12,17 @@
   <section class="content-container podium-container">
     <div class="section-card-container">
       <div class="podium second-place">
-        <h3> <%= data[1]?.name %> </h3>
-        <p>Points: <%= data[1]?.points %> </p>        
-        <p>Pages Read: <%= data[1]?.pagesRead %> </p>        
-        <p>Books Read: <%= data[1]?.booksRead %> </p>        
-        <p>Top Reader: <%= data[1]?.topReader %> </p>        
+        <% if (data[1]) { %>
+          <h3> <%= data[1].name %> </h3>
+          <p>Points:</p>
+          <h5> <%= data[1].points %> </h5>        
+          <p>Pages Read:</p>
+          <h5> <%= data[1].pagesRead %> </h5>        
+          <p>Books Read:</p>
+          <h5> <%= data[1].booksRead %> </h5>        
+          <p>Top Reader:</p>
+          <h5> <%= data[1].topReader %> </h5>       
+        <% } %>
       </div>
       <div class="podium-padding second">
         <h5>Second Place</h5>
@@ -25,10 +31,14 @@
     <div class="section-card-container">
       <div class="podium first-place">
         <h3> <%= data[0].name %> </h3>
-        <p>Points: <%= data[0].points %> </p>        
-        <p>Pages Read: <%= data[0].pagesRead %> </p>        
-        <p>Books Read: <%= data[0].booksRead %> </p>        
-        <p>Top Reader: <%= data[0].topReader %> </p>  
+          <p>Points:</p>
+          <h5> <%= data[0].points %> </h5>        
+          <p>Pages Read:</p>
+          <h5> <%= data[0].pagesRead %> </h5>        
+          <p>Books Read:</p>
+          <h5> <%= data[0].booksRead %> </h5>        
+          <p>Top Reader:</p>
+          <h5> <%= data[0].topReader %> </h5>
       </div>
       <div class="podium-padding first">
         <h5>First Place</h5>
@@ -36,11 +46,19 @@
     </div>
     <div class="section-card-container">
       <div class="podium third-place">
-        <h3> <%= data[2]?.name %> </h3>
-        <p>Points: <%= data[2]?.points %> </p>        
-        <p>Pages Read: <%= data[2]?.pagesRead %> </p>        
-        <p>Books Read: <%= data[2]?.booksRead %> </p>        
-        <p>Top Reader: <%= data[2]?.topReader %> </p>  
+        <% if (data[2]) { %>
+          <h3> <%= data[2].name %> </h3>
+          <p>Points:</p>
+          <h5> <%= data[2].points %> </h5>        
+          <p>Pages Read:</p>
+          <h5> <%= data[2].pagesRead %> </h5>        
+          <p>Books Read:</p>
+          <h5> <%= data[2].booksRead %> </h5>        
+          <p>Top Reader:</p>
+          <h5> <%= data[2].topReader %> </h5>
+        <% } else { %>
+          <h3>N/A</h3>
+        <% } %>
       </div>
       <div class="podium-padding third">
         <h5>Third Place</h5>

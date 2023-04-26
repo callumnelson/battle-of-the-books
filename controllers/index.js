@@ -52,8 +52,8 @@ const showScoreboard = async (req, res) => {
                   populate: {
                     path: 'book'
                   }
-          }
-        } 
+              }
+          } 
       })
       //Prep data for scoreboard
       let data = []
@@ -94,7 +94,6 @@ const showScoreboard = async (req, res) => {
       })
       //Sort descending first by points and then by pages if it's a tie
       data.sort((a, b) => b.points - a.points || b.pagesRead - a.pagesRead)
-      console.log(data)
       res.render('scoreboard', {
         title: 'Scoreboard',
         data
