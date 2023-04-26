@@ -47,7 +47,7 @@ const index = async (req, res) => {
   }
 }
 
-const deleteTicket = async(req, res) => {
+const deleteTicket = async (req, res) => {
   try {
     const ticket = await Ticket.findById(req.params.ticketId)
     const owner = await Profile.findById(ticket.owner)
@@ -159,7 +159,11 @@ const update = async (req, res) => {
     if (req.user.profile.role < 200 && !toUpdate.owner.equals(req.user.profile._id)){
       throw new Error(`Access Denied: Students can't update other students' tickets`)
     }else {
-      await Ticket.updateOne({_id: toUpdate._id}, {$set: req.body})
+      await Ticket.updateOne({_id: toUpdate._id}, {review: req.body.review}, {new: true})
+      //This is a manual entry and the user may be updating the book
+      if (req.body.title) {
+        await Book.updateOne({_id: toUpdate.book}, {$set: req.body}, {new: true})
+      }
       res.redirect('/tickets')
     }
   } catch (err) {

@@ -108,6 +108,10 @@ nav {
   color: white;
 }
 
+.activeProfile {
+  border: 1px solid white;
+}
+
 .footer {
   position: sticky;
   bottom: 0;

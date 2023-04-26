@@ -13,8 +13,8 @@
       <% } %>
     </div>
     <div class="page-nav-container">
-      <% if (user.profile.role > 100 && user.profile._id.equals(profile._id)) { %>
-        <a class="btn btn-outline-info" role="button" id="new-section-btn" href="/profiles/<%= user.profile._id %>/edit">
+      <% if (user.profile.role > 100) { %>
+        <a class="btn btn-outline-info" role="button" id="new-section-btn" href="/profiles/<%= profile._id %>/edit">
           Edit Profile
         </a>
       <% } %>
@@ -32,19 +32,25 @@
         <thead>
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">District</th>
             <th scope="col">School</th>
             <th scope="col">Teacher</th>
             <th scope="col">Section</th>
+            <% if (user.profile.role > 100) { %>
+              <th scope="col">ELL</th>
+              <th scope="col">SWD</th>
+            <% } %>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td> <%= profile.name %> </td>
-            <td> <%= profile.district.name %> </td>
             <td> <%= profile.school %> </td>
             <td> <%= profile.sections[0].teachers[0].name %> %></td>
             <td> <%= profile.sections[0].name %> </td>
+            <% if (user.profile.role > 100) { %>
+              <td> <%= profile.ellStatus ? 'Yes' : 'No' %> </td>
+              <td> <%= profile.swdStatus ? 'Yes' : 'No' %> </td>
+            <% } %>
           </tr>
         </tbody>
       </table>
@@ -109,7 +115,7 @@
       </table>
     </section>
     <section class="content-container">
-      <h3>Books You've Read</h3>
+      <h3>Finished Books</h3>
       <table id="books-list" class="table">
         <thead class="thead-light">
           <tr>
@@ -133,7 +139,7 @@
                   <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
                 </td>
                 <td> <%= ticket.book.pageCount %> </td>
-                <td> <%= ticket.book?.publishedDate?.getFullYear() %> %></td>
+                <td> <%= ticket.book?.publishedDate?.getFullYear() %> </td>
                 <td> <%= ticket.review %> </td>
               </tr>
             <% } %>

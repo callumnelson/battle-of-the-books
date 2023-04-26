@@ -52,6 +52,7 @@
             <li>
               <a href="/profiles/<%= user.profile._id %>">
                 <img
+                  class="<%= title === user.profile.name ? 'activeProfile' : '' %>"
                   id="avatar"
                   src="<%= user.profile.avatar %>"
                   alt="<%= user.profile.name %> avatar"
