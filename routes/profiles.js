@@ -6,7 +6,7 @@ import { isLoggedIn } from '../middleware/middleware.js'
 
 // ALL ROUTES ACCESS localhost:3000/profiles
 
-// GET localhost:3000/profile
+// GET localhost:3000/profiles/:profileId
 router.get('/:profileId', isLoggedIn, profileCtrl.show)
 
 // GET localhost:3000/profiles/:profileId/edit

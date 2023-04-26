@@ -109,19 +109,15 @@
     <% if (!user.profile.sections.length) { %>
       <h1>You're ready create some sections</h1>
       <a class="btn btn-outline-info" role="button" href="/sections">Sections</a>
-    <!-- We're signed up and have sections -->
-    <% } else { %>
-      <h1>SCOREBOARD GOES HERE</h1>
+    <!-- TEACHER SCOREBOARD -->
     <% } %>
   <!-- STUDENT ROLE  -->
-  <% } else { %>
+  <% } else if (user.profile.role < 200) { %>
     <% if (!user.profile.sections.length) { %>
       <h1>Thanks for signing up!</h1>
       <h2>Once your teacher takes you off the waitlist, you can get started</h2>
-    <% } else  { %> 
-      <h1> Welcome back, <%= user.profile.name %>!</h1>
-      <h1>SCOREBOARD GOES HERE</h1>
-    <% }  %>
+    <!-- STUDENT SCOREBOARD -->
+    <% } %>
   <% } %>
 </main>
 

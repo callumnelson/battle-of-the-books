@@ -15,6 +15,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
+            <!-- Only show scoreboard if student is in a section or teacher has created a section -->
+            <% if (user.profile.sections.length > 0) { %>
+              <li class="nav-item">
+                <a class="nav-link <%= title === 'Scoreboard' ? 'active' : '' %>" href="/scoreboard" >
+                  Scoreboard
+                </a>
+              </li>
+            <% } %>
             <!-- Only show sections to teachers and above -->
             <% if (user.profile.role > 100) { %>
               <li class="nav-item">

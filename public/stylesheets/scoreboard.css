@@ -1,0 +1,55 @@
+
+
+
+.podium-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.section-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.podium {
+  width: 200px;
+  height: 300px;
+  border: 0.5px solid black;
+  border-radius: 10px;
+}
+
+.first-place {
+}
+
+.second-place {
+  margin-top: 25px;
+}
+
+.third-place {
+  margin-top: 50px;
+}
+
+.podium-padding {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.podium-padding.first {
+  height: 100px;
+  background-color: gold;
+}
+
+.podium-padding.second {
+  height: 75px;
+  background-color: silver;
+}
+
+.podium-padding.third {
+  height: 50px;
+  background-color: brown;
+}
