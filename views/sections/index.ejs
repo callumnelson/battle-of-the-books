@@ -38,8 +38,8 @@
             <td> <%= section.schoolYear %> </td>
             <td> <%= section.gradeLevel %> </td>
             <td> <%= section.students.length %> %></td>
-            <td> 0 </td>
-            <td> 0 </td>
+            <td> <%= section.students.reduce( (a, s) => s.ellStatus * 1, 0) %> </td>
+            <td> <%= section.students.reduce( (a, s) => s.swdStatus * 1, 0) %> </td>
             <td> <%= section.waitlist.length %> </td>
             <td>
               <a href="/sections/<%= section._id %>" role="button" class="btn btn-outline-primary">

@@ -6,7 +6,12 @@ const index = async (req, res) => {
   try {
     if (req.user.profile.role > 100) {
       const teacher = await Profile.findById(req.user.profile._id)
-      .populate('sections')
+      .populate({
+        path: 'sections',
+          populate: {
+            path: 'students waitlist'
+          }
+      })
       res.render('sections/index', { 
         title: 'Sections',
         teacher
