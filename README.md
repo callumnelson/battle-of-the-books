@@ -2,7 +2,7 @@
 
 Are you an ELA teacher? Do you need an easy way to keep track of your students' reading? Do you want to be able to know which of your sections has read the most throughout the year? Welcome to Battle of the Books!!
 
-Inspired by the teachers in my family, I created this site to bring their classroom libraries and reading competitions to life. See the original planning materials, including wireframes and an ERD on Whimsical [here](https://whimsical.com/battle-of-the-books-B2SQhkR1HyKXyGb9ULiZmK).
+Inspired by the teachers in my family, I created this site to bring their classroom libraries and reading competitions to life. See the original planning materials, including wireframes and an ERD on Whimsical [here](https://whimsical.com/battle-of-the-books-B2SQhkR1HyKXyGb9ULiZmK) and Trello [here](https://trello.com/b/gDLt53EO/battle-of-the-books)
 
 ![App screenshot](https://github.com/callumnelson/battle-of-the-books/blob/main/public/assets/images/screenshot.png)
 
@@ -30,13 +30,16 @@ After being approved to join a section, students can:
 ## Technologies used 💾
 
 * MEN Stack
-  * MongoDB
+  * MongoDB/Mongoose
   * Express.js
   * Node.js
+* OAuth (Sign In With Google)
 * EJS
-* Bootstrap
 * Fly.io
 * Git
+* Github
+* [Trello](https://trello.com/b/gDLt53EO/battle-of-the-books)
+* [Whimsical](https://whimsical.com/battle-of-the-books-B2SQhkR1HyKXyGb9ULiZmK)
 
 ## Attributions 🤩
 
