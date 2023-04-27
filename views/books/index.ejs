@@ -35,7 +35,7 @@
           <th scope="col">Author(s)</th>
           <th scope="col"># Pages</th>
           <th scope="col">Year Published</th>
-          <th scope="col"></th>
+          <th scope="col" class="description">Description</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -59,12 +59,8 @@
               <%= printedAuthors %>
             </td>
             <td> <%= book.pageCount %> </td>
-            <td> <%= book?.publishedDate?.getFullYear() %> %></td>
-            <td>
-              <a href="/books/<%= book._id %>" role="button" class="btn btn-outline-primary">
-                Details
-              </a>
-            </td>
+            <td> <%= book.publishedDate?.getFullYear() %> %></td>
+            <td class="description"> <%= book.description ? book.description.slice(0, 500) + '...' : '' %> </td>
             <td>
               <form action="/books/<%= book.googleId %>/checkout?_method=PUT" method="POST">
                 <input role="button" type="submit" value="Checkout" class="btn btn-outline-success">

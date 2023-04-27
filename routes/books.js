@@ -9,9 +9,6 @@ import { isLoggedIn } from '../middleware/middleware.js'
 // GET localhost:3000/books
 router.get('/', isLoggedIn, booksCtrl.index)
 
-// GET localhost:3000/
-router.get('/:bookId', isLoggedIn, booksCtrl.show)
-
 // GET localhost:3000/books/search
 router.post('/search', isLoggedIn, booksCtrl.search)
 

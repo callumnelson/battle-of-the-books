@@ -10,5 +10,9 @@
 }
 
 th, td {
-  max-width: 250px;
+  max-width: 175px;
+}
+
+.description {
+  min-width: 350px;
 }

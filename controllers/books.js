@@ -15,15 +15,6 @@ const index = async (req, res) => {
   }
 }
 
-const show = async (req, res) => {
-  try {
-    
-  } catch (err) {
-    console.log(err)
-    res.redirect('/books')
-  }
-}
-
 const checkout = async (req, res) => {
   try {
     const result = await Book.find({googleId: req.params.bookGoogleId})
@@ -91,7 +82,6 @@ const search = async (req, res) => {
 
 export {
   index,
-  show,
   checkout,
   search
 }
