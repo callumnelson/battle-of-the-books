@@ -35,7 +35,8 @@ main {
   display: flex;
   flex-direction: column;
   /* Viewheight minus header and footer */
-  min-height: calc(100% - 66px - 60px);
+  min-height: calc(100% - 66px - 40px);
+  background-color: rgb(243, 244, 253);
 }
 
 nav {
@@ -113,18 +114,22 @@ nav {
 }
 
 .footer {
-  position: sticky;
   bottom: 0;
   width: 100%;
-  height: 60px;
-  line-height: 60px;
-  background-color: #f5f5f5;
+  height: 40px;
+  line-height: 40px;
+  background-color: rgb(0, 8, 83);
   padding-left: 20px;
+  
+}
+
+.footer > span {
+  color: white;
 }
 
 .content-container > h3 {
   margin-bottom: 20px;
-  text-align: left;
+  text-align: left; 
 }
 
 .nav-link {
