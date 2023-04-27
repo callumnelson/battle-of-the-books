@@ -87,7 +87,7 @@ const createApiTicket = async (req, res) => {
 
 const createManualTicket = async (req, res) => {
   try {
-    //If teacher, create many tickets and set owners to students selected in form
+    //TODO If teacher, create many tickets and set owners to students selected in form
     if (req.user.profile.role > 100 ){
       
     } else {

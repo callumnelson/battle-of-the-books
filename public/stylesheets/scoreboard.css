@@ -44,6 +44,8 @@
 .podium-padding.first {
   height: 100px;
   background-color: gold;
+  display: flex;
+  gap: 10px;
 }
 
 .podium-padding.second {
@@ -53,5 +55,5 @@
 
 .podium-padding.third {
   height: 50px;
-  background-color: brown;
+  background-color: rgb(165, 110, 42);
 }
