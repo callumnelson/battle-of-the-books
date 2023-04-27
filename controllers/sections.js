@@ -28,22 +28,25 @@ const index = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const teacher = await Profile.findById(req.user.profile._id)
-    .populate('sections')
-    //If a section with that name, year, and grade already exists, don't let the user create it again
-    let duplicate = teacher.sections.find( section => {
-      return section.name === req.body.name && section.schoolYear === +req.body.schoolYear && section.gradeLevel === req.body.gradeLevel 
-    })
-    if (duplicate) {
-      //TODO make this show to the user
-      throw new Error('Oops, duplicate section!')
-    } else {
-      const newSection = await Section.create(req.body)
-      newSection.teachers.push(teacher._id)
-      teacher.sections.push(newSection._id)
-      await newSection.save()
-      await teacher.save()
-      res.redirect('/sections')
+    if (req.user.profile.role > 100){
+      const teacher = await Profile.findById(req.user.profile._id)
+      .populate('sections')
+      //If a section with that name, year, and grade already exists, don't let the user create it again
+      let duplicate = teacher.sections.find( section => {
+        return section.name === req.body.name && section.schoolYear === +req.body.schoolYear && section.gradeLevel === req.body.gradeLevel 
+      })
+      if (duplicate) {
+        throw new Error('Access Denied: Avoid duplicate sections!')
+      } else {
+        const newSection = await Section.create(req.body)
+        newSection.teachers.push(teacher._id)
+        teacher.sections.push(newSection._id)
+        await newSection.save()
+        await teacher.save()
+        res.redirect('/sections')
+      }
+    }else {
+      throw new Error(`Access Denied: Students can't create sections`)
     }
   } catch (err) {
     console.log(err)
@@ -97,19 +100,24 @@ const deleteSection = async (req, res) => {
   try {
     if (req.user.profile.role > 100){
       const section = await Section.findById(req.params.sectionId)
-      // For each student enrolled, remove section from sections
-      //TODO remove all books, tickets from profile and reset to initial values
-      const enrolledRes = await Profile.updateMany(
-        { _id: { $in: section.students} }, 
-        { isSignedUp: false, sections: [], district: null, school: '' }
+      //Delete each user and profile from enrolled list
+      const enrolledProfiles = await Profile.find(
+        { _id: { $in: section.students} }
       )
-      //For each student in waitlist, set isSignedUp to false
-      //TODO remove all books, tickets from profile and reset to initial values
-      const waitlistRes = await Profile.updateMany(
-        { _id: { $in: section.waitlist} }, 
-        { isSignedUp: false, district: null, school: '' }
+      //Delete each user and profile from waitlist
+      const waitlistProfiles = await Profile.find(
+        { _id: { $in: section.waitlist} }
       )
-
+      const enrolledIds = enrolledProfiles.map(prof => prof._id)
+      const waitlistIds = waitlistProfiles.map(prof => prof._id)
+      const enrolledEmails = enrolledProfiles.map(prof => prof.email)
+      const waitlistEmails = waitlistProfiles.map(prof => prof.email)
+      //Delete profiles
+      await Profile.deleteMany({_id: {$in: enrolledIds}})
+      await Profile.deleteMany({_id: {$in: waitlistIds}})
+      //Delete users
+      await User.deleteMany({email: {$in: enrolledEmails}})
+      await User.deleteMany({email: {$in: waitlistEmails}})
       //Remove section from teacher's section list
       req.user.profile.sections.remove(section._id)
       await req.user.profile.save()
