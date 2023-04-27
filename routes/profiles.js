@@ -15,7 +15,7 @@ router.get('/:profileId/edit', isLoggedIn, profileCtrl.edit)
 // PATCH localhost:3000/profiles/:profileId/profilesetup
 router.patch('/:profileId/profilesetup', isLoggedIn, profileCtrl.setUpProfile)
 
-// GET localhost:3000/profiles/:profileId/update
+// PUT localhost:3000/profiles/:profileId/update
 router.put('/:profileId', isLoggedIn, profileCtrl.update)
 
 export {

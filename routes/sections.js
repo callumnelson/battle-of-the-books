@@ -16,6 +16,7 @@ router.get('/:sectionId', isLoggedIn, sectionsCtrl.show)
 // POST localhost:3000/sections
 router.post('/', isLoggedIn, sectionsCtrl.create)
 
+// PUT localhost:3000/sections/:sectionId
 router.put('/:sectionId', isLoggedIn, sectionsCtrl.update)
 
 // PATCH localhost:3000/sections/:sectionId/profiles/:profileId

@@ -4,6 +4,7 @@ import { Book } from '../models/book.js'
 
 const index = async (req, res) => {
   try { 
+    //Teacher accessing all their tickets
     if (req.user.profile.role > 100) {
       const teacher = await Profile.findById(req.user.profile._id)
       .populate({path: 'sections', 
@@ -30,7 +31,7 @@ const index = async (req, res) => {
         tickets,
         currentBooks: []
       })
-      
+    //Student accessing their tickets  
     } else {
       const student = await Profile.findById(req.user.profile._id)
       .populate({path: 'tickets', populate: { path: 'book' }})
