@@ -1,5 +1,5 @@
 <%- include('../partials/html-head') %>
-
+<link rel="stylesheet" href="/stylesheets/profiles/show.css">
 <%- include('../partials/nav') %>
 
 <main>
@@ -13,7 +13,7 @@
       <% } %>
     </div>
     <div class="page-nav-container">
-      <% if (user.profile.role > 100) { %>
+      <% if (user.profile.role > 100 && !user.profile._id.equals(profile._id)) { %>
         <a class="btn btn-outline-info" role="button" id="new-section-btn" href="/profiles/<%= profile._id %>/edit">
           Edit Profile
         </a>
@@ -23,7 +23,10 @@
   <!-- Teacher accessing their own profile -->
   <% if (user.profile.role > 100 && user.profile._id.equals(profile._id)) { %>
   <!-- Teacher version of profile goes here -->
-    <img src="" alt="">
+  <div class="content-container teacher-content-container">
+    <h5>You are an amazing teacher. Thank you for helping students learn to love reading!</h5>
+    <img src="/assets/books.png" alt="Picture of books">
+  </div>
   <!-- Teacher accessing a student's profile or student accessing their own profile -->
   <% } else { %>
     <section class="content-container">
