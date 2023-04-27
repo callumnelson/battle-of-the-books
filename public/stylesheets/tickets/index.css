@@ -22,3 +22,49 @@
 .title {
   max-width: 150px;
 }
+
+.teacher-list > td:nth-child(7), .teacher-list > td:nth-child(8) {
+  text-align: center;
+} 
+
+.teacher-list > th:nth-child(7), .teacher-list > th:nth-child(8) {
+  text-align: center;
+} 
+
+.teacher-list > td:nth-last-child(1), .teacher-list > td:nth-last-child(2){
+  text-align: right;
+}
+
+/* Simplify .teacher-list when on mobile devices */
+@media only screen and (max-width: 768px) {
+  .teacher-list > td:nth-child(3), .teacher-list > td:nth-child(4), .teacher-list > td:nth-child(8)  {
+    display: none;
+  } 
+
+  .teacher-list > th:nth-child(3), .teacher-list > th:nth-child(4), .teacher-list > th:nth-child(8) {
+    display: none;
+  } 
+}
+
+.student-list > td:nth-child(5), .student-list > td:nth-child(6) {
+  text-align: center;
+} 
+
+.student-list > th:nth-child(5), .student-list > th:nth-child(6) {
+  text-align: center;
+} 
+
+.student-list > td:nth-last-child(1), .student-list > td:nth-last-child(2){
+  text-align: right;
+}
+
+/* Simplify .student-list when on mobile devices */
+@media only screen and (max-width: 768px) {
+  .student-list > td:nth-child(4), .student-list > td:nth-child(5), .student-list > td:nth-child(6)  {
+    display: none;
+  } 
+
+  .student-list > th:nth-child(4), .student-list > th:nth-child(5), .student-list > th:nth-child(6) {
+    display: none;
+  } 
+}

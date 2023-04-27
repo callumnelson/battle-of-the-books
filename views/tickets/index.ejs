@@ -18,9 +18,9 @@
   <% if (user.profile.role > 100) { %>
     <section class="content-container">
       <h3>Pending Tickets (<%= tickets.reduce( (a, c) => a + !c.ticket.status * 1, 0) %>) </h3>
-      <table id="pending-list" class="table">
-        <thead class="thead-light">
-          <tr>
+      <table class="table">
+        <thead>
+          <tr class="teacher-list">
             <th scope="col">#</th>
             <th scope="col">Student</th>
             <th scope="col">Section</th>
@@ -35,10 +35,11 @@
           </tr>
         </thead>
         <tbody>
+          <% let pendingCount = 1 %>
           <% tickets.forEach( (ticket, i) => { %>
             <% if (!ticket.ticket.status) { %>
-              <tr>
-                <th scope="row"><%= i+1 %></th>
+              <tr class="teacher-list">
+                <th scope="row"><%= pendingCount %></th>
                 <td> <%= ticket.student.name %> </td>
                 <td> <%= ticket.section.name %> </td>
                 <td> <%= ticket.ticket.createdAt.toLocaleDateString('en-US') %> </td>
@@ -62,6 +63,7 @@
                   </form>
                 </td>
               </tr>
+              <% pendingCount++ %>
             <% } %>
           <% }) %>
         </tbody>
@@ -69,9 +71,9 @@
     </section>
     <section class="content-container">
       <h3>Approved Tickets (<%= tickets.reduce( (a, c) => a + c.ticket.status * 1, 0) %>) </h3>
-      <table id="pending-list" class="table">
-        <thead class="thead-light">
-          <tr>
+      <table class="table">
+        <thead>
+          <tr class="teacher-list">
             <th scope="col">#</th>
             <th scope="col">Student</th>
             <th scope="col">Section</th>
@@ -82,13 +84,15 @@
             <th scope="col"># Points</th>
             <th scope="col" class="review">Review</th>
             <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody>        
+          <% let approvedCount = 1 %>
           <% tickets.forEach( (ticket, i) => { %>
             <% if (ticket.ticket.status) { %>
-              <tr>
-                <th scope="row"><%= i+1 %></th>
+              <tr class="teacher-list">
+                <th scope="row"><%= approvedCount %></th>
                 <td> <%= ticket.student.name %> </td>
                 <td> <%= ticket.section.name %> </td>
                 <td> <%= ticket.ticket.createdAt.toLocaleDateString('en-US') %> </td>
@@ -99,6 +103,7 @@
                 <td> <%= ticket.ticket.book.pageCount %> </td>
                 <td> <%= Math.ceil(ticket.ticket.book.pageCount/300) %> </td>
                 <td class="review"> <%= ticket.ticket.review %> </td>
+                <td></td>
                 <td>
                   <form action="/tickets/<%= ticket.ticket._id %>?_method=DELETE" method="POST" class="delete-form">
                     <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
@@ -106,6 +111,7 @@
                   </form>
                 </td>
               </tr>
+              <% approvedCount++ %>
             <% } %>
           <% }) %>
         </tbody>
@@ -115,9 +121,9 @@
     <% tickets.sort((a, b) => b.createdAt - a.createdAt) %>
     <section class="content-container">
       <h3>Pending Tickets (<%= tickets.reduce( (a, c) => a + !c.status * 1, 0) %>) </h3>
-      <table id="pending-list" class="table">
-        <thead class="thead-light">
-          <tr>
+      <table class="table">
+        <thead>
+          <tr class="student-list">
             <th scope="col">#</th>
             <th scope="col">Date Created</th>
             <th scope="col" class="title">Title</th>
@@ -130,10 +136,11 @@
           </tr>
         </thead>
         <tbody>
+          <% let pendingCount = 1 %>
           <% tickets.forEach( (ticket, i) => { %>
             <% if (!ticket.status) { %>
-              <tr>
-                <th scope="row"><%= i+1 %></th>
+              <tr class="student-list">
+                <th scope="row"><%= pendingCount %></th>
                 <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
                 <td class="title"> <%= ticket.book.title %> </td>
                 <td> 
@@ -154,6 +161,7 @@
                   </form>
                 </td>
               </tr>
+              <% pendingCount++ %>
             <% } %>
           <% }) %>
         </tbody>
@@ -161,9 +169,9 @@
     </section>
     <section class="content-container">
       <h3>Approved Tickets (<%= tickets.reduce( (a, c) => a + c.status * 1, 0) %>) </h3>
-      <table id="pending-list" class="table">
-        <thead class="thead-light">
-          <tr>
+      <table class="table">
+        <thead>
+          <tr class="student-list">
             <th scope="col">#</th>
             <th scope="col">Date Created</th>
             <th scope="col" class="title">Title</th>
@@ -171,13 +179,16 @@
             <th scope="col"># Pages</th>
             <th scope="col"># Points</th>
             <th scope="col" class="review">Review</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
+          <% let approvedCount = 1 %>
           <% tickets.forEach( (ticket, i) => { %>
             <% if (ticket.status) { %>
-              <tr>
-                <th scope="row"><%= i+1 %></th>
+              <tr class="student-list">
+                <th scope="row"><%= approvedCount %></th>
                 <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
                 <td class="title"> <%= ticket.book.title %> </td>
                 <td> 
@@ -186,7 +197,10 @@
                 <td> <%= ticket.book.pageCount %> </td>
                 <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
                 <td class="review"> <%= ticket.review %> </td>
+                <td></td>
+                <td></td>
               </tr>
+              <% approvedCount++ %>
             <% } %>
           <% }) %>
         </tbody>

@@ -10,165 +10,52 @@
     <div class="page-nav-container">
     </div>
   </section>
-    <!-- Sort with most recent at the top -->
-  <% if (user.profile.role > 100) { %>
-    <section class="content-container">
-      <h3>Pending Tickets (<%= tickets.reduce( (a, c) => a + !c.ticket.status * 1, 0) %>) </h3>
-      <table id="pending-list" class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Student</th>
-            <th scope="col">Section</th>
-            <th scope="col">Date Created</th>
-            <th scope="col" class="title">Title</th>
-            <th scope="col">Author(s)</th>
-            <th scope="col"># Pages</th>
-            <th scope="col"># Points</th>
-            <th scope="col" class="review">Review</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% tickets.forEach( (ticket, i) => { %>
-            <% if (!ticket.ticket.status) { %>
-              <tr>
-                <th scope="row"><%= i+1 %></th>
-                <td> <%= ticket.student.name %> </td>
-                <td> <%= ticket.section.name %> </td>
-                <td> <%= ticket.ticket.createdAt.toLocaleDateString('en-US') %> </td>
-                <td class="title"> <%= ticket.ticket.book.title %> </td>
-                <td> 
-                  <%= ticket.ticket.book.authors.length > 1 ? ticket.ticket.book.authors.join(', ') : ticket.ticket.book.authors[0]%> 
-                </td>
-                <td> <%= ticket.ticket.book.pageCount %> </td>
-                <td> <%= Math.ceil(ticket.ticket.book.pageCount/300) %> </td>
-                <td class="review"> <%= ticket.ticket.review %> </td>
-                <td>
-                  <form action="/tickets/<%= ticket.ticket._id %>/approve?_method=PATCH" method="POST" class="approve-form">
-                    <input role="button" type="submit" value="Approve" class="btn btn-outline-success">
-                    </input>
-                  </form>
-                </td>
-                <td>
-                  <form action="/tickets/<%= ticket.ticket._id %>?_method=DELETE" method="POST" class="delete-form">
-                    <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
-                    </input>
-                  </form>
-                </td>
-              </tr>
-            <% } %>
-          <% }) %>
-        </tbody>
-      </table>
-    </section>
-    <section class="content-container">
-      <h3>Approved Tickets (<%= tickets.reduce( (a, c) => a + c.ticket.status * 1, 0) %>) </h3>
-      <table id="pending-list" class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Student</th>
-            <th scope="col">Section</th>
-            <th scope="col">Date Created</th>
-            <th scope="col" class="title">Title</th>
-            <th scope="col">Author(s)</th>
-            <th scope="col"># Pages</th>
-            <th scope="col"># Points</th>
-            <th scope="col" class="review">Review</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% tickets.forEach( (ticket, i) => { %>
-            <% if (ticket.ticket.status) { %>
-              <tr>
-                <th scope="row"><%= i+1 %></th>
-                <td> <%= ticket.student.name %> </td>
-                <td> <%= ticket.section.name %> </td>
-                <td> <%= ticket.ticket.createdAt.toLocaleDateString('en-US') %> </td>
-                <td class="title"> <%= ticket.ticket.book.title %> </td>
-                <td> 
-                  <%= ticket.ticket.book.authors.length > 1 ? ticket.ticket.book.authors.join(', ') : ticket.ticket.book.authors[0]%> 
-                </td>
-                <td> <%= ticket.ticket.book.pageCount %> </td>
-                <td> <%= Math.ceil(ticket.ticket.book.pageCount/300) %> </td>
-                <td class="review"> <%= ticket.ticket.review %> </td>
-                <td>
-                  <form action="/tickets/<%= ticket.ticket._id %>?_method=DELETE" method="POST" class="delete-form">
-                    <input role="button" type="submit" value="Delete" class="btn btn-outline-danger">
-                    </input>
-                  </form>
-                </td>
-              </tr>
-            <% } %>
-          <% }) %>
-        </tbody>
-      </table>
-    </section>
-  <% } else { %>
-    <% tickets.sort((a, b) => b.createdAt - a.createdAt) %>
-    <section class="content-container">
-      <h3>Pending Tickets (<%= tickets.reduce( (a, c) => a + !c.status * 1, 0) %>) </h3>
-      <table id="pending-list" class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date Created</th>
-            <th scope="col" class="title">Title</th>
-            <th scope="col">Author(s)</th>
-            <th scope="col"># Pages</th>
-            <th scope="col"># Points</th>
-            <th scope="col" class="review">Review</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% tickets.forEach( (ticket, i) => { %>
-            <% if (!ticket.status) { %>
-              <tr>
-                <!-- If it's the ticket we want to edit and a manual entry -->
-                <% if (ticket._id.equals(editId) && !ticket.book.googleId) { %>
-                  <form action="/tickets/<%= ticket._id %>?_method=PUT" method="POST" class="update-form">
-                    <th scope="row"><%= i+1 %></th>
-                    <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
-                    <td class="title">
-                        <input type="text" class="form-control" name="title" id="title-input" value="<%= ticket.book.title %>" required>
-                    </td>
-                    <td> 
-                      <input class="form-control" type="text" name="authors" id="authors-input" value="<%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%>" required>
-                    </td>
-                    <td> 
-                      <input class="form-control" type="number" name="pageCount" id="pageCount-input" min="0" max="2000" value="<%= ticket.book.pageCount %>" required>
-                    </td>
-                    <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
-                    <td class="review"> 
-                      <textarea class="form-control" type="text" name="review" id="review-input" required><%= ticket.review %></textarea>
-                    </td>
-                    <td>
-                      <input role="button" type="submit" value="Save" class="btn btn-outline-success"></input>
-                    </td>
-                </form>
-                <!-- Library entry -->
-                <% } else if (ticket._id.equals(editId) && ticket.book.googleId) { %>
-                  <form action="/tickets/<%= ticket._id %>?_method=PUT" method="POST" class="update-form">
-                    <th scope="row"><%= i+1 %></th>
-                    <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
-                    <td class="title"> <%= ticket.book.title %> </td>
-                    <td> 
-                      <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
-                    </td>
-                    <td> <%= ticket.book.pageCount %> </td>
-                    <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
-                    <td class="review"> 
-                      <textarea class="form-control" type="text" name="review" id="review-input" required><%= ticket.review %></textarea>
-                    </td>
-                    <td>
-                      <input role="button" type="submit" value="Save" class="btn btn-outline-success"></input>
-                    </td>
-                  </form>
-                <% } else { %>
+  <% tickets.sort((a, b) => b.createdAt - a.createdAt) %>
+  <section class="content-container">
+    <h3>Pending Tickets (<%= tickets.reduce( (a, c) => a + !c.status * 1, 0) %>) </h3>
+    <table id="pending-list" class="table">
+      <thead class="thead-light">
+        <tr class="pending-list">
+          <th scope="col">#</th>
+          <th scope="col">Date Created</th>
+          <th scope="col" class="title">Title</th>
+          <th scope="col">Author(s)</th>
+          <th scope="col"># Pages</th>
+          <th scope="col"># Points</th>
+          <th scope="col" class="review">Review</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let pendingCount = 1 %>
+        <% tickets.forEach( (ticket, i) => { %>
+          <% if (!ticket.status) { %>
+            <tr class="pending-list">
+              <!-- If it's the ticket we want to edit and a manual entry -->
+              <% if (ticket._id.equals(editId) && !ticket.book.googleId) { %>
+                <form action="/tickets/<%= ticket._id %>?_method=PUT" method="POST" class="update-form">
+                  <th scope="row"><%= pendingCount %></th>
+                  <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
+                  <td class="title">
+                      <input type="text" class="form-control" name="title" id="title-input" value="<%= ticket.book.title %>" required>
+                  </td>
+                  <td> 
+                    <input class="form-control" type="text" name="authors" id="authors-input" value="<%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%>" required>
+                  </td>
+                  <td> 
+                    <input class="form-control" type="number" name="pageCount" id="pageCount-input" min="0" max="2000" value="<%= ticket.book.pageCount %>" required>
+                  </td>
+                  <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
+                  <td class="review"> 
+                    <textarea class="form-control" type="text" name="review" id="review-input" required><%= ticket.review %></textarea>
+                  </td>
+                  <td>
+                    <input role="button" type="submit" value="Save" class="btn btn-outline-success"></input>
+                  </td>
+              </form>
+              <!-- Library entry -->
+              <% } else if (ticket._id.equals(editId) && ticket.book.googleId) { %>
+                <form action="/tickets/<%= ticket._id %>?_method=PUT" method="POST" class="update-form">
                   <th scope="row"><%= i+1 %></th>
                   <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
                   <td class="title"> <%= ticket.book.title %> </td>
@@ -177,34 +64,14 @@
                   </td>
                   <td> <%= ticket.book.pageCount %> </td>
                   <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
-                  <td class="review"> <%= ticket.review %> </td>
-                  <td></td>
-                <% } %>
-                </td>
-              </tr>
-            <% } %>
-          <% }) %>
-        </tbody>
-      </table>
-    </section>
-    <section class="content-container">
-      <h3>Approved Tickets (<%= tickets.reduce( (a, c) => a + c.status * 1, 0) %>) </h3>
-      <table id="pending-list" class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date Created</th>
-            <th scope="col" class="title">Title</th>
-            <th scope="col">Author(s)</th>
-            <th scope="col"># Pages</th>
-            <th scope="col"># Points</th>
-            <th scope="col" class="review">Review</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% tickets.forEach( (ticket, i) => { %>
-            <% if (ticket.status) { %>
-              <tr>
+                  <td class="review"> 
+                    <textarea class="form-control" type="text" name="review" id="review-input" required><%= ticket.review %></textarea>
+                  </td>
+                  <td>
+                    <input role="button" type="submit" value="Save" class="btn btn-outline-success"></input>
+                  </td>
+                </form>
+              <% } else { %>
                 <th scope="row"><%= i+1 %></th>
                 <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
                 <td class="title"> <%= ticket.book.title %> </td>
@@ -214,13 +81,51 @@
                 <td> <%= ticket.book.pageCount %> </td>
                 <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
                 <td class="review"> <%= ticket.review %> </td>
-              </tr>
-            <% } %>
-          <% }) %>
-        </tbody>
-      </table>
-    </section>
-  <% } %>
+                <td></td>
+              <% } %>
+              </td>
+            </tr>
+            <% pendingCount++ %>
+          <% } %>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+  <section class="content-container">
+    <h3>Approved Tickets (<%= tickets.reduce( (a, c) => a + c.status * 1, 0) %>) </h3>
+    <table class="table">
+      <thead>
+        <tr class="approved-list">
+          <th scope="col">#</th>
+          <th scope="col">Date Created</th>
+          <th scope="col" class="title">Title</th>
+          <th scope="col">Author(s)</th>
+          <th scope="col"># Pages</th>
+          <th scope="col"># Points</th>
+          <th scope="col" class="review">Review</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let approvedCount = 1 %>
+        <% tickets.forEach( (ticket, i) => { %>
+          <% if (ticket.status) { %>
+            <tr class="approved-list">
+              <th scope="row"><%= approvedCount %></th>
+              <td> <%= ticket.createdAt.toLocaleDateString('en-US') %> </td>
+              <td class="title"> <%= ticket.book.title %> </td>
+              <td> 
+                <%= ticket.book.authors.length > 1 ? ticket.book.authors.join(', ') : ticket.book.authors[0]%> 
+              </td>
+              <td> <%= ticket.book.pageCount %> </td>
+              <td> <%= Math.ceil(ticket.book.pageCount/300) %> </td>
+              <td class="review"> <%= ticket.review %> </td>
+            </tr>
+            <% approvedCount++ %>
+          <% } %>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
 </main>
 
 <%- include('../partials/footer') %>
