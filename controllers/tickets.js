@@ -15,6 +15,7 @@ const index = async (req, res) => {
           }
         }
       })
+      .populate('currentBooks')
       const tickets = []
       teacher.sections.forEach( section => {
         section.students.forEach( student => {
@@ -30,7 +31,7 @@ const index = async (req, res) => {
       res.render('tickets/index', {
         title: 'Tickets',
         tickets,
-        currentBooks: []
+        currentBooks: teacher.currentBooks
       })
     //Student accessing their tickets  
     } else {
@@ -70,41 +71,41 @@ const deleteTicket = async (req, res) => {
 
 const createApiTicket = async (req, res) => {
   try {
-    const book = await Book.findById(req.body.bookId)
-    const student = await Profile.findById(req.user.profile._id)
-    const ticket = await Ticket.create({
-      owner: req.user.profile._id,
-      review: req.body.review,
-      status: false,
-      book: book._id
-    })
-    student.tickets.push(ticket)
-    await student.save()
-    res.redirect('/tickets')
+    //Teacher submitting ticket on behalf of students
+    if (req.user.profile.role > 100) {
+      const book = await Book.findById(req.body.bookId)
+      const section = await Section.findById(req.body.section)
+      const students = await Profile.find({_id: {$in: section.students}})
+      //Use async loop to save all tickets and add to students' tickets arrays
+      await Promise.all( students.map( async (student) => {
+        let tick = await Ticket.create({
+          owner: student._id,
+          review: req.body.review,
+          status: true,
+          book: book._id
+        })
+        student.tickets.push(tick)
+        await student.save()
+      }))
+      res.redirect('/tickets')
+    } else {
+      const book = await Book.findById(req.body.bookId)
+      const student = await Profile.findById(req.user.profile._id)
+      const ticket = await Ticket.create({
+        owner: req.user.profile._id,
+        review: req.body.review,
+        status: false,
+        book: book._id
+      })
+      student.tickets.push(ticket)
+      await student.save()
+      res.redirect('/tickets')
+    }
   } catch (err) {
     console.log(err)
     res.redirect('/tickets')
   }
 }
-
-// const saveTickets = async ( students, body, book ) => {
-//   try {
-//     console.log(students)
-//     await Promise.all( students.map( async (student) => {
-//       let tick = await Ticket.create({
-//         owner: student._id,
-//         review: body.review,
-//         status: false,
-//         book: book._id
-//       })
-//       student.tickets.push(tick)
-//       await student.save()
-//     }))
-//     console.log('Finished saving!')
-//   } catch (error) {
-//     throw new Error('Error saving tickets:')
-//   }
-// }
 
 const createManualTicket = async (req, res) => {
   try {
@@ -112,7 +113,7 @@ const createManualTicket = async (req, res) => {
       const book = await Book.create(req.body)
       const section = await Section.findById(req.body.section)
       const students = await Profile.find({_id: {$in: section.students}})
-      //Use async loop to save all tickets
+      //Use async loop to save all tickets and add to students' tickets arrays
       await Promise.all( students.map( async (student) => {
         let tick = await Ticket.create({
           owner: student._id,
