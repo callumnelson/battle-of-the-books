@@ -1,6 +1,7 @@
 import { Ticket } from '../models/ticket.js'
 import { Profile } from '../models/profile.js'
 import { Book } from '../models/book.js'
+import { Section } from '../models/section.js'
 
 const index = async (req, res) => {
   try { 
@@ -86,11 +87,43 @@ const createApiTicket = async (req, res) => {
   }
 }
 
+// const saveTickets = async ( students, body, book ) => {
+//   try {
+//     console.log(students)
+//     await Promise.all( students.map( async (student) => {
+//       let tick = await Ticket.create({
+//         owner: student._id,
+//         review: body.review,
+//         status: false,
+//         book: book._id
+//       })
+//       student.tickets.push(tick)
+//       await student.save()
+//     }))
+//     console.log('Finished saving!')
+//   } catch (error) {
+//     throw new Error('Error saving tickets:')
+//   }
+// }
+
 const createManualTicket = async (req, res) => {
   try {
-    //TODO If teacher, create many tickets and set owners to students selected in form
     if (req.user.profile.role > 100 ){
-      
+      const book = await Book.create(req.body)
+      const section = await Section.findById(req.body.section)
+      const students = await Profile.find({_id: {$in: section.students}})
+      //Use async loop to save all tickets
+      await Promise.all( students.map( async (student) => {
+        let tick = await Ticket.create({
+          owner: student._id,
+          review: req.body.review,
+          status: true,
+          book: book._id
+        })
+        student.tickets.push(tick)
+        await student.save()
+      }))
+      res.redirect('/tickets')
     } else {
       const book = await Book.create(req.body)
       const student = await Profile.findById(req.user.profile._id)
@@ -172,6 +205,8 @@ const update = async (req, res) => {
     res.redirect('/tickets')
   }
 }
+
+
 
 export {
   index,
