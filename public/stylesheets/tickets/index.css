@@ -6,12 +6,8 @@
   min-width: 350px;
 }
 
-#title-input, #authors-input, #pageCount-input, #ticket-type-input {
+#title-input, #authors-input, #pageCount-input, #ticket-type-input, #section-input {
   max-width: 220px;
-}
-
-#review-input {
-  min-height: 100px;
 }
 
 .review {

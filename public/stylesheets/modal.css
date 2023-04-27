@@ -1,7 +1,7 @@
 .modal-custom {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 1500;
   left: 0;
   top: 0;
   /* Put the modal on top of the whole page and gray out the background */

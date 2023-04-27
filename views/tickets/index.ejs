@@ -8,15 +8,13 @@
     <div>
       <h1 class="page-header">Tickets</h1>
       <% if (user.profile.role > 100) { %>
-        <p>See all tickets submitted by your students (across all sections) below. Pending tickets require your approval to be counted toward the scoreboard. <strong>Note:</strong> Students can edit tickets if they need to re-submit for any reason, but not after the ticket has been approved. </p>
+        <p>See all tickets submitted by your students (across all sections) below. Pending tickets require your approval to be counted toward the scoreboard. You can also submit tickets on behalf of students using the "Submit a Ticket" button. <strong>Note:</strong> Students can edit tickets, but only before they been approved.</p>
       <% } %>
     </div>
     <div class="page-nav-container">
-      <% if (user.profile.role < 200) { %>
-        <a class="btn btn-outline-info" role="button" id="new-ticket-btn">
-          Submit a Ticket
-        </a>
-      <% } %>
+      <a class="btn btn-outline-info" role="button" id="new-ticket-btn">
+        Submit a Ticket
+      </a>
     </div>
   </section>
     <!-- Sort with most recent at the top -->
@@ -238,6 +236,17 @@
                   <% }) %>
               </select>
             </div>
+            <% if (user.profile.role > 100) { %>
+              <div class="form-group">
+                <label for="section-input">Choose Section:</label>
+                <select class="form-select" name="section" id="section-input">
+                  <option value="">--Select a Section--</option>
+                  <% user.profile.sections.forEach(section => { %>
+                    <option value="<%= section._id %>"><%= section.name %></option>
+                  <% }) %>
+                </select>
+              </div>
+            <% } %>
             <div class="form-group">
               <label for="review-input">Write a Review:</label>
               <textarea class="form-control" type="text" name="review" id="review-input" required></textarea>
@@ -261,6 +270,17 @@
               <label for="pageCount-input"># Pages</label>
                 <input class="form-control" type="number" name="pageCount" id="pageCount-input" min="0" max="2000" required>
             </div>
+            <% if (user.profile.role > 100) { %>
+              <div class="form-group">
+                <label for="section-input">Choose Section:</label>
+                <select class="form-select" name="section" id="section-input">
+                  <option value="">--Select a Section--</option>
+                  <% user.profile.sections.forEach(section => { %>
+                    <option value="<%= section._id %>"><%= section.name %></option>
+                  <% }) %>
+                </select>
+              </div>
+            <% } %>
             <div class="form-group">
               <label for="review-input">Write a Review:</label>
               <textarea class="form-control" type="text" name="review" id="review-input" required></textarea>
