@@ -65,7 +65,10 @@ passport.deserializeUser(function (userId, done) {
       populate: {
         path: 'sections',
           populate: {
-            path: 'waitlist students.tickets'
+            path: 'waitlist students',
+              populate: {
+                path: 'tickets'
+              }
           }
       }
   })

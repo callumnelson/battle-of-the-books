@@ -44,6 +44,18 @@
               <li class="nav-item">
                 <a class="nav-link <%= title === 'Tickets' ? 'active' : '' %>" href="/tickets">
                   Tickets
+                  <% 
+                    let pending = 0
+                    user.profile.sections.forEach( sec => {
+                      sec.students.forEach( stu => {  
+                        stu.tickets.forEach( tic => {
+                          if(!tic.status) pending++
+                        })
+                      })
+                    })
+                    if( user.profile.role > 100  && pending){ %>
+                    <p> <%= pending %> </p>
+                  <% } %>
                 </a>
               </li>
             <% } %>
