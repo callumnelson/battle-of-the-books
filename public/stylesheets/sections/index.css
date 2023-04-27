@@ -1,22 +1,22 @@
-table > td:nth-child(4), table > td:nth-child(5), table > td:nth-child(6), table > td:nth-child(7) {
+tr > td:nth-child(5), tr > td:nth-child(6), tr > td:nth-child(7), tr > td:nth-child(8) {
   text-align: center;
 } 
 
-table > th:nth-child(4), table > th:nth-child(5), table > th:nth-child(6), table > th:nth-child(7) {
+tr > th:nth-child(5), tr > th:nth-child(6), tr > th:nth-child(7), tr > th:nth-child(8) {
   text-align: center;
 } 
 
-table > td:nth-last-child(1), table > td:nth-last-child(2){
+tr > td:nth-last-child(1), tr > td:nth-last-child(2){
   text-align: right;
 }
 
-/* Simplify table when on mobile devices */
+/* Simplify tr when on mobile devices */
 @media only screen and (max-width: 768px) {
-  table > td:nth-child(4), table > td:nth-child(5), table > td:nth-child(6), table > td:nth-child(7) {
+  tr > td:nth-child(3), tr > td:nth-child(4), tr > td:nth-child(5), tr > td:nth-child(6), tr > td:nth-child(7) {
     display: none;
   } 
 
-  table > th:nth-child(4), table > th:nth-child(5), table > th:nth-child(6), table > th:nth-child(7) {
+  tr > th:nth-child(3), tr > th:nth-child(4), tr > th:nth-child(5), tr > th:nth-child(6), tr > th:nth-child(7) {
     display: none;
   } 
 }

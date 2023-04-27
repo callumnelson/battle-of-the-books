@@ -20,9 +20,12 @@ const checkout = async (req, res) => {
     const result = await Book.find({googleId: req.params.bookGoogleId})
     const profile = await Profile.findById(req.user.profile._id)
     //If book exists already in our database
-    if (result.length){
-      profile.currentBooks.push(result[0])
-      await profile.save()
+    if (result.length) { 
+      //If we haven't already checked it out
+      if (!profile.currentBooks.includes(result[0]._id)){
+        profile.currentBooks.push(result[0])
+        await profile.save()
+      }
     //Book doesn't already exist
     }else {
       const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${req.params.bookGoogleId}`)

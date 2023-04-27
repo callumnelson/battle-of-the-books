@@ -18,12 +18,16 @@
     <% if (searchTerms) { %>
       <div class="searchterms-container">
         <% if (searchTerms.title) { %>
-          <p><strong>Title:  </strong></p>
-          <p><%= searchTerms.title %></p>
+          <div>
+            <p><strong>Title:  </strong></p>
+            <p><%= searchTerms.title %></p>
+          </div>
         <% } %>
         <% if (searchTerms.author) { %>
-          <p><strong>Author: </strong></p>
-          <p><%= searchTerms.author %></p>
+          <div>
+            <p><strong>Author: </strong></p>
+            <p><%= searchTerms.author %></p>
+          </div>
         <% } %>
       </div>
     <% } %>
