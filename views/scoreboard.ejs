@@ -67,8 +67,32 @@
       </div>
     </div>
   </section>
-  <section class="content-container">
-    <h3>Honorable Mention</h3>
-  </section>
+  <% if (data.length > 3) { %>
+    <section class="content-container">
+      <h3>Honorable Mentions</h3>
+      <table id="waitlist-list" class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Section</th>
+            <th scope="col">Points</th>
+            <th scope="col">Pages Read</th>
+            <th scope="col">Books Read</th>
+            <th scope="col">Top Reader</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% section.slice(3).forEach( section => { %>
+            <tr>
+              <td> <%= section.name %> </td>
+              <td> <%= section.points %> </td>
+              <td> <%= section.pagesRead %></td>
+              <td> <%= section.booksRead %></td>
+              <td> <%= section.topReader %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  <% } %>
 </main>
 <%- include('./partials/footer') %>
