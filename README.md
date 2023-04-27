@@ -1,24 +1,24 @@
 # Battle of the Books ([App](https://battle-of-the-books.fly.dev/))
 
-Are you an ELA teacher? Do you need an easy way to keep track of how much your students have read? Do you want to be able to track which of your sections has read the most throughout the year? Welcome to Battle of the Books!!
+Are you an ELA teacher? Do you need an easy way to keep track of your students' reading? Do you want to be able to know which of your sections has read the most throughout the year? Welcome to Battle of the Books!!
 
-Inspired by the teachers in my family, I created this site to bring their classroom libraries to life. See the original planning materials, including wireframes and an ERD on Whimsical [here](https://whimsical.com/battle-of-the-books-B2SQhkR1HyKXyGb9ULiZmK).
+Inspired by the teachers in my family, I created this site to bring their classroom libraries and reading competitions to life. See the original planning materials, including wireframes and an ERD on Whimsical [here](https://whimsical.com/battle-of-the-books-B2SQhkR1HyKXyGb9ULiZmK).
 
 ![App screenshot](https://github.com/callumnelson/battle-of-the-books/blob/main/public/assets/images/screenshot.png)
 
 ## How it works 📗
 
-Students create tickets for each of the books they finish. Each ticket contains the book's title, author, and page count, as well as the student's 1-2 sentence review of the book. Teachers are able to review and approve the tickets and, once approved, the ticket counts toward the class' total number of points (1 point per 200 pages read).
+To track their reading, students submit tickets for each book they finish. A ticket contains the book's title, author, and page count, as well as the student's 1-2 sentence review of their reading experience (did they like it? were they surprised by the plot twists?). Teachers can then review and approve the tickets students have submitted and, once approved, tickets count toward the class' total number of points (1 point per 200 pages read).
 
 ## Getting started 🏁
 
-Once an admin user has created a district and at least one school within that district, teachers can begin to sign up, at which point they can:
+Once an admin user creates a district and corresponding school or schools, teachers can sign up, after which they can:
 - Create sections for their students to join
 - Admit or deny students who request to join their sections
 - View and edit admitted students' profiles
 - Delete students and/or sections from their roster
 - Approve tickets submitted by their students
-- Create tickets for entire sections (e.g. if a class read a book together)
+- Create tickets on behalf of their sections (e.g. if a whole class read a book together)
 - View the scoreboard for all of their classes
 
 After being approved to join a section, students can:
@@ -41,7 +41,7 @@ After being approved to join a section, students can:
 
 ## Attributions 🤩
 
-* First and foremost, thank you to the teachers in my life who inspired this app and gave feedback along the way. 
+* First and foremost, thank you to the teachers in my life who inspired this app and gave invaluable feedback along the way. 
 * Thanks to the easy-to-use Font Awesome Icon Library, which can be found [here](https://fontawesome.com/icons)
 
 ## Ice Box Features ⏭️
@@ -49,7 +49,7 @@ After being approved to join a section, students can:
 - [x] Add a library sourced by Google Books API in addition to manually entered tickets
 - [x] Implement the ability to track the books that students are currently reading in addition to finished books tracked through submitted tickets
 - [x] Add sound effects for pieces being played.
-- [x] Add a mobile friendly view
+- [x] Add a mobile-friendly view
 - [ ] Add dark mode
 - [ ] Implement 'view only' co-teacher functionality
 - [ ] Enable profile 'impersonation' for users with admin privileges
