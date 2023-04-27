@@ -8,7 +8,7 @@ Inspired by the teachers in my family, I created this site to bring their classr
 
 ## How it works 📗
 
-To track their reading, students submit tickets for each book they finish. A ticket contains the book's title, author, and page count, as well as the student's 1-2 sentence review of their reading experience (did they like it? were they surprised by the plot twists?). Teachers can then review and approve the tickets students have submitted and, once approved, tickets count toward the class' total number of points (1 point per 200 pages read).
+To track their reading, students submit tickets for each book they finish. A ticket contains the book's title, author, and page count, as well as the student's 1-2 sentence review of their reading experience (e.g. did they like it? were they surprised by the plot twists?). Teachers can then review and approve the tickets students have submitted. Once approved, tickets count toward the class' total number of points (1 point per 200 pages read).
 
 ## Getting started 🏁
 
