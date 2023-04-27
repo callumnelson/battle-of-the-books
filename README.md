@@ -4,6 +4,8 @@ Are you an ELA teacher? Do you need an easy way to keep track of how much your s
 
 Inspired by the teachers in my family, I created this site to bring their classroom libraries to life. See the original planning materials, including wireframes and an ERD on Whimsical [here](https://whimsical.com/battle-of-the-books-B2SQhkR1HyKXyGb9ULiZmK).
 
+![App screenshot](https://github.com/callumnelson/battle-of-the-books/blob/main/public/assets/images/screenshot.png)
+
 ## How it works 📗
 
 Students create tickets for each of the books they finish. Each ticket contains the book's title, author, and page count, as well as the student's 1-2 sentence review of the book. Teachers are able to review and approve the tickets and, once approved, the ticket counts toward the class' total number of points (1 point per 200 pages read).
@@ -45,11 +47,10 @@ After being approved to join a section, students can:
 ## Ice Box Features ⏭️
 
 - [x] Add a library sourced by Google Books API in addition to manually entered tickets
-- [x] Implement a minimax algorithm up to three levels of recursion.
+- [x] Implement the ability to track the books that students are currently reading in addition to finished books tracked through submitted tickets
 - [x] Add sound effects for pieces being played.
-- [x] Additional styling to add to the existing Shakespearean theme.
-- [x] Help modal with gameplay instructions.
-- [ ] Add pseudo-randomness to AI given multiple moves of equivalent value.
-- [ ] Add animation to pieces when they are flipped.
-- [ ] Add a mobile friendly view.
-- [ ] Add a Dark/light mode toggle.
+- [x] Add a mobile friendly view
+- [ ] Add dark mode
+- [ ] Implement 'view only' co-teacher functionality
+- [ ] Enable profile 'impersonation' for users with admin privileges
+- [ ] Add ability to import roster of students from CSV for users with teacher privileges
