@@ -1,8 +1,8 @@
 # Battle of the Books ([App](https://battle-of-the-books.fly.dev/))
 
-Are you an ELA teacher? Do you need an easy way to keep track of your students' reading? Do you want to be able to know which of your sections has read the most throughout the year? Welcome to Battle of the Books!!
+Are you an ELA teacher? Do you need an easy way to keep track of your students' reading? Do you want to be able to know which of your sections has read the most throughout the year? Welcome to [Battle of the Books](https://battle-of-the-books.fly.dev/)!
 
-Inspired by the teachers in my family, I created this site to bring their classroom libraries and reading competitions to life. See the original planning materials, including wireframes and an ERD on Whimsical [here](https://whimsical.com/battle-of-the-books-B2SQhkR1HyKXyGb9ULiZmK) and Trello [here](https://trello.com/b/gDLt53EO/battle-of-the-books)
+Inspired by the teachers in my family, I created this site to bring their classroom libraries and reading competitions to life. See the original planning materials, including wireframes and an ERD on Whimsical [here](https://whimsical.com/battle-of-the-books-B2SQhkR1HyKXyGb9ULiZmK) and Trello [here](https://trello.com/b/gDLt53EO/battle-of-the-books).
 
 ![App screenshot](https://github.com/callumnelson/battle-of-the-books/blob/main/public/assets/images/screenshot.png)
 
