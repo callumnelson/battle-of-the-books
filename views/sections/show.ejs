@@ -1,5 +1,6 @@
 <%- include('../partials/html-head') %>
 <script defer src="/js/sections/show.js"></script>
+<link rel="stylesheet" href="/stylesheets/sections/show.css">
 <%- include('../partials/nav') %>
 
 <main>
@@ -17,9 +18,9 @@
   </section>
   <section class="content-container" id="enrolled-list-container">
     <h3>Enrolled Students (<%= section.students.length %>)</h3>
-    <table id="enrolled-list" class="table">
+    <table class="table">
       <thead class="thead-light">
-        <tr>
+        <tr class="enrolled-list">
           <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col"># Books Checked Out</th>
@@ -31,7 +32,7 @@
       </thead>
       <tbody>
         <% section.students.forEach( (student, i) => { %>
-          <tr>
+          <tr class="enrolled-list">
             <th scope="row"><%= i+1 %></th>
             <td> <%= student.name %> </td>
             <td> <%= student.currentBooks.length %> </td>
