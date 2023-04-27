@@ -37,12 +37,13 @@ After being approved to join a section, students can:
 * Bootstrap
 * Fly.io
 * Git
-* Google Books API
 
 ## Attributions 🤩
 
 * First and foremost, thank you to the teachers in my life who inspired this app and gave invaluable feedback along the way. 
-* Thanks to the easy-to-use Font Awesome Icon Library, which can be found [here](https://fontawesome.com/icons)
+* The app utilizes the Font Awesome Icon Library, which can be found [here](https://fontawesome.com/icons).
+* Battle of the Books relies on (Bootstrap v5)[https://getbootstrap.com/docs/5.3/getting-started/introduction/] for basic layout and consistent styling elements, especially buttons, tables, and the navbar.
+* The books library queries the (Google Books API)[https://developers.google.com/books/docs/overview] and returns, at most, the top 40 most relevant volumes to the user.
 
 ## Ice Box Features ⏭️
 
