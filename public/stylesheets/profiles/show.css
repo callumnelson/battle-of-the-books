@@ -14,3 +14,41 @@
   border-radius: 50%;
   border: 1px solid black;
 }
+
+.stats-and-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.reading-stats > td, .reading-stats > th{
+  text-align: center;
+}
+
+.stats-and-info > section {
+  flex-grow: 1;
+}
+
+.description {
+  max-width: 500px;
+}
+
+.checked-out-books > td:nth-child(4), .finished-books > td:nth-child(4),
+.checked-out-books > td:nth-child(5), .finished-books > td:nth-child(5) {
+  text-align: center;
+} 
+
+.checked-out-books > th:nth-child(4), .finished-books > th:nth-child(4),
+.checked-out-books > th:nth-child(5), .finished-books > th:nth-child(5) {
+  text-align: center;
+} 
+
+/* Simplify .teacher-list when on mobile devices */
+@media only screen and (max-width: 768px) {
+  .checked-out-books > td:nth-last-child(1), .finished-books > td:nth-last-child(1) {
+    display: none;
+  } 
+
+  .checked-out-books > th:nth-last-child(1), .finished-books > th:nth-last-child(1) {
+    display: none;
+  } 
+}
