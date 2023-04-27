@@ -7,11 +7,16 @@
   <section class="page-header-container">
     <div>
       <h1 class="page-header">Tickets</h1>
+      <% if (user.profile.role > 100) { %>
+        <p>See all tickets submitted by your students (across all sections) below. Pending tickets require your approval to be counted toward the scoreboard. <strong>Note:</strong> Students can edit tickets if they need to re-submit for any reason, but not after the ticket has been approved. </p>
+      <% } %>
     </div>
     <div class="page-nav-container">
-      <a class="btn btn-outline-info" role="button" id="new-ticket-btn">
-        Submit a Ticket
-      </a>
+      <% if (user.profile.role < 200) { %>
+        <a class="btn btn-outline-info" role="button" id="new-ticket-btn">
+          Submit a Ticket
+        </a>
+      <% } %>
     </div>
   </section>
     <!-- Sort with most recent at the top -->

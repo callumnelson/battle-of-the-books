@@ -7,6 +7,9 @@
   <section class="page-header-container">
     <div>
       <h1 class="page-header"><%= title %> <%= results ? `(${results})` : '' %></h1>
+      <% if (user.profile.role > 100) { %>
+        <p>The library allows student to "check out" a book from the internet using Google's <a href="https://books.google.com/">Books API</a>. Students can create a new search for a title and/or author and then click "Checkout" next to one of the results if they want to add it to their current reading list. When students submit a ticket, they will be able to choose from a list of books they have checked out.<strong> Note:</strong> Students can also submit tickets manually for books they have not checked out from the library.</p>
+      <% } %>
     </div>
     <div class="page-nav-container">
       <a class="btn btn-outline-info" role="button" id="new-search-btn">

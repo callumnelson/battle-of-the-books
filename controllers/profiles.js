@@ -28,7 +28,7 @@ const show = async (req, res) => {
         }
       })
       .populate('currentBooks')
-      res.render('profile/show', { 
+      res.render('profiles/show', { 
         title: fullProfile.name,
         profile: fullProfile
       })
@@ -59,7 +59,7 @@ const edit = async (req, res) => {
       .populate('currentBooks')
       const teacher = await Profile.findById(req.user.profile._id)
       .populate('sections', 'name')
-      res.render('profile/edit', {
+      res.render('profiles/edit', {
         title: req.user.profile.name,
         student,
         teacher,

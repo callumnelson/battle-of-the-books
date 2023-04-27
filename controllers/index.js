@@ -13,8 +13,6 @@ const index = async (req, res) => {
       const teachers = await Profile.find({role: 200})
       .populate('district', 'name')
       .populate('sections', 'name')
-
-      
       
       const teachersWithSections = teachers.filter(teacher => {
         return teacher.sections.length > 0

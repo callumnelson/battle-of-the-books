@@ -7,6 +7,9 @@
   <section class="page-header-container">
     <div>
       <h1 class="page-header"><%= section.name %>: <%= section.gradeLevel %> grade (<%= section.schoolYear %>) </h1>
+      <% if (user.profile.role > 100) { %>
+        <p>See a list of the students enrolled and on the waitlist for the selected section below. Click the "Admit" button next to waitlisted students to allow them to access the platform and begin submitting tickets. Click the "Profile" button to view detailed information about a student and their reading. <strong>Note:</strong> Removing a student will remove them and their data from the platform entirely.</p>
+      <% } %>
     </div>
     <div class="page-nav-container">
       <% if (user.profile.role > 100) { %>

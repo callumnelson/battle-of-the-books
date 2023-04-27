@@ -7,6 +7,9 @@
   <section class="page-header-container">
     <div>
       <h1 class="page-header">Your Sections</h1>
+      <% if (user.profile.role > 100) { %>
+        <p>See a list of your sections and enrollment below. To view the individual students enrolled in a section or to edit a section's information, click the "Details" button. <strong>Note:</strong> Students will not be able to join a section until it has been created, and deleting a section will remove all of its students and their data from the platform.</p>
+      <% } %>
     </div>
     <div class="page-nav-container">
       <a class="btn btn-outline-info" role="button" id="new-section-btn">
