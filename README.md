@@ -56,5 +56,6 @@ After being approved to join a section, students can:
 - [x] Add a mobile-friendly view
 - [ ] Add dark mode
 - [ ] Implement 'view only' co-teacher functionality
+- [ ] Add a school-level admin role that can admit teachers to the school
 - [ ] Enable profile 'impersonation' for users with admin privileges
 - [ ] Add ability to import roster of students from CSV for users with teacher privileges
