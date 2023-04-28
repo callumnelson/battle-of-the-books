@@ -67,7 +67,8 @@
             </td>
             <td> <%= book.pageCount %> </td>
             <td> <%= book.publishedDate?.getFullYear() %> %></td>
-            <td class="description"> <%= book.description ? book.description.slice(0, 500).replaceAll('<p>', '').replaceAll('</p>', '') + '...' : '' %> </td>
+            <% const pattern = /<.*?>/g %>
+            <td class="description"> <%= book.description ? book.description.slice(0, 500).replaceAll(pattern, '') + '...' : '' %> </td>
             <td>
               <form action="/books/<%= book.googleId %>/checkout?_method=PUT" method="POST">
                 <input role="button" type="submit" value="Checkout" class="btn btn-outline-success">
